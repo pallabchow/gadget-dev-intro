@@ -267,7 +267,7 @@ The gadget asks the user to upload a new asset by posting a message like this:
 }
 ```
 
-Possible types are `image` and `video`.
+Possible asset types are `image` and `video`.
 
 The player displays a UI for uploading an asset. After an upload, the player post a message `setAsset` to the gadget:
 
@@ -278,20 +278,45 @@ The player displays a UI for uploading an asset. After an upload, the player pos
   	asset: {
   		id: 'a73cb21...",
   		representations: [
-  			{ location: 'http://amazon/bucket/some/image.png', ...
-  			...
+  			{ id: '65bb32...',
+  			  scale: '800x600',
+  			  contentType: 'image/png',
+  			  original: false,
+  			  available: true
+  			}, ...
   		]
   	}
   }
 ```
 
-The structure of Versal assets is an array of `representations`, each item containing an image or a video at a certain resolution.
+The structure of Versal assets is an array of `representations`, each item containing an image or a video at a certain resolution. Each representation is tagged as "original" or not; this shows whether the image or video was scaled down from its original size. (If you upload a small image, it will not be scaled down, and so there will be only one "representation", which will be `original`.)
 
-###### Need more documentation here: what is precisely the semantics of various fields in the asset JSON?
+After getting a new asset, you may want to choose a representation and persist that representation's ID in the gadget's attributes, by posting `setAttributes` to the player.
 
-After receiving a new asset, the gadget may want to persist the asset data in its attributes by posting `setAttributes`.
+All uploaded assets are automatically processed (and scaled down if necessary). The resulting representations are stored in remote URLs. To display the image, you need to fetch the URL that corresponds to the representation's ID. You post a message `getPath`:
 
-###### What is the semantics of `newPath` and `setPath`? Where does the asset ID come from, for these messages?
+```
+{ event: 'getPath',
+  data: {
+    messageId: 123,
+    assetId: '65bb32...' // this is really the representation's ID, not the whole asset's ID.
+  }
+}
+```
+
+The player responds by posting `setPath` to the gadget; this message contains a URL:
+
+```
+{ event: 'setPath'
+  data: {
+    messageId: 123,
+    url: 'http://stack.versal.com/api/assets/9a8b7c6d5e430ef...'
+  }
+}
+```
+
+The gadget can now use this URL to set the `img src=...` tag or to display a video player.
+
 
 Challenges and scoring
 -------------------------
@@ -411,14 +436,14 @@ Creating a course with your gadget
 
 Go to [versal.com](http://versal.com), sign in, and create a new course. Click on the "Sandbox" tray in the bottom; you should see your new gadget available. Drag your gadget into the lesson and start using it.
 
-Updating the gadget
+Updating a published gadget
 -----------
 
-To update the gadget, you need to do two things:
+To update a published gadget, you need to do two things:
 
-- change the gadget version upwards (e.g. from `0.1.3` to `0.1.4`)
+- change the gadget version upwards (e.g. from `0.1.3` to `0.1.4`) in the `manifest.json`
 
-- publish the gadget again
+- publish the gadget again (`versal publish`)
 
 Suppose you already created some courses that use your gadget version `0.1.3`, and now you published an updated version `0.1.4`. When you do this, the courses do not automatically start using the updated version. To avoid breaking the existing courses, all older gadget versions will be preserved by the platform. The course authors need to agree explicitly to upgrade your gadget to a new version.
 
