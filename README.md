@@ -62,7 +62,7 @@ In the `iframe-first-gadget` directory, run the command
 versal preview
 ```
 
-This will start a local HTTP server on port `3000`. Open the URL `localhost:3000` in a Web browser. You will see an empty lesson and a test gadget in the gadget tray below. Double-click on that gadget; you will see that the gadget has been added to the lesson. You have now tested the sample gadget!
+This will start a local HTTP server on port `3000`. Open the URL [localhost:3000](http://localhost:3000) in a Web browser. You will see an empty lesson and a test gadget in the gadget tray below. Double-click on that gadget; you will see that the gadget has been added to the lesson. You have now tested the sample gadget!
 
 ###### Verify that these repos exist and contain sample code (iframe-timeline and iframe-quiz don't exist yet!)
 
