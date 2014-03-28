@@ -32,7 +32,9 @@ To begin developing gadgets, you need to install the development software. You w
 
 ###### Remove Versal/player requirement when Versal/sdk finally incorporates the player branch
 
-Check out the repositories `Versal/sdk`, `Versal/player`, and `Versal/iframe-first-gadget`. It would be best to check them out side by side in the same directory.
+###### Versal/iframe-first-gadget repo doesn't exist yet!
+
+Check out the repositories [Versal/sdk](https://github.com/Versal/sdk), [Versal/player](https://github.com/Versal/player), and [Versal/iframe-first-gadget](https://github.com/Versal/iframe-first-gadget). It would be best to check them out side by side in the same directory.
 
 In the `player` directory, run the commands
 
@@ -62,9 +64,9 @@ versal preview
 
 This will start a local HTTP server on port `3000`. Open the URL `localhost:3000` in a Web browser. You will see an empty lesson and a test gadget in the gadget tray below. Double-click on that gadget; you will see that the gadget has been added to the lesson. You have now tested the sample gadget!
 
-###### Verify that these repos exist and contain sample code
+###### Verify that these repos exist and contain sample code (iframe-timeline and iframe-quiz don't exist yet!)
 
-Further sample gadgets are available in the repositories `Versal/gadget-markov-fu`, `Versal/iframe-timeline`, and `Versal/iframe-quiz`.
+Further sample gadgets are available in the repositories [Versal/gadget-markov-fu](https://github.com/Versal/gadget-markov-fu), [Versal/iframe-timeline](https://github.com/Versal/iframe-timeline), and [Versal/iframe-quiz](https://github.com/Versal/iframe-quiz).
 
 The basic layout and the messaging API
 ------------------------
