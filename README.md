@@ -68,8 +68,8 @@ This will start a local HTTP server on port `3000`. Open the URL [localhost:3000
 
 Further sample gadgets are available in the repositories [Versal/gadget-markov-fu](https://github.com/Versal/gadget-markov-fu), [Versal/iframe-timeline](https://github.com/Versal/iframe-timeline), and [Versal/iframe-quiz](https://github.com/Versal/iframe-quiz).
 
-The basic layout and the messaging API
-------------------------
+The basic layout
+-----------------
 
 The Versal platform provides a **player** environment that loads the gadget in the context of a lesson, passes configuration data to the gadget, and receives learner's data from the gadget.
 
@@ -77,7 +77,31 @@ The Versal platform provides a **player** environment that loads the gadget in t
 
 Presently, a gadgets is developed as a Web app - that is, as an individual HTML document. The player will first load the gadget's root file, `assets/index.html`. Any JS libraries or frameworks required by the gadget need to be loaded there by usual mechanisms supported by HTML5 (statically or asynchronously). The gadget's JS code should be started from this `index.html`, as in any ordinary Web app.
 
-In addition, each gadget must have an icon, `assets/icon.png`, and a `manifest.json` that specifies the gadget's current version, the Versal user who developed it, and other data. (A minimal gadget can have just three files, `index.html`, `assets/icon.png`, and `manifest.json`.)
+In addition, each gadget must have an icon, `assets/icon.png`, and a `manifest.json` that specifies the gadget's current version, the Versal user who developed it, and other data. (A minimal gadget can have just three files, `assets/index.html`, `assets/icon.png`, and `manifest.json`.)
+
+The layout of `manifest.json` is clear from this example (see [manifest.json](./manifest.json) ):
+
+```
+{
+  "username": "sergei",   // username on Versal.com
+  "name": "hello-world",  // short name of gadget
+  "version": "0.1.0",   // semantic version
+  "title": "Hello, World",
+  "description": "Demo gadget showing the basic API",
+  "author": "sergei",   // username on Versal.com
+  "defaultConfig": {  // default set of attributes for the gadget
+    "__launcher": "iframe",  // will be phased out in the future, but necessary for now
+    "username": "sergei" // necessary?
+  },
+  "defaultUserState": {} // default learner state for the gadget
+}
+```
+
+###### Is the 'username' necessary in defaultConfig?
+###### Can we rename defaultUserState to defaultLearnerState, or vice versa?
+
+Gadget/player messaging
+----------------
 
 The player communicates with the gadget through `postMessage`.
 
@@ -150,7 +174,7 @@ _After_ the gadget was removed from the lesson DOM, the player posts the `detach
 Initial visual state
 -------------
 
-###### Correct? These messages can be sent before receiving `attached`?
+###### Correct? These messages can be sent before receiving `attached`? Seems to work.
 
 At this early stage, when the gadget has not yet been attached to the lesson document, the gadget may also post the messages `setEmpty`, `setHeight`, and `setPropertySheetAttributes` to the player. These messages will configure some visual aspects of the gadget that are provided by the Versal platform.
 
@@ -355,6 +379,8 @@ versal preview
 ```
 
 This command starts a local HTTP server on port 3000. Open the URL [localhost:3000](http://localhost:3000) in a browser. You will see an empty lesson page and your gadget's icon in the bottom tray. Double-click on the gadget icon to insert the gadget into the lesson. This is how a course author will start using your gadget in a new course. You can now interact with your gadget, both in authoring mode and in learner mode. (Click the "cogwheel" icon to switch between these modes.)
+
+Power tip: While this HTTP server is running, you can continue changing the gadget's code. Just refresh the browser to see the changes live!
 
 Deploying in sandbox
 -----------

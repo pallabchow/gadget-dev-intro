@@ -1,0 +1,13 @@
+{
+  "username": "sergei",
+  "name": "hello-world",
+  "version": "0.1.0",
+  "title": "Hello, World",
+  "description": "Demo gadget showing the basic API",
+  "author": "sergei",
+  "defaultConfig": {
+    "__launcher": "iframe",
+    "username": "Sergei Winitzki"
+  },
+  "defaultUserState": {}
+}
