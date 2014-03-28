@@ -8,9 +8,20 @@ Overview and concepts
 
 A course in the Versal platform consists of lessons. Each lesson can show all kinds of content - from text, images, and videos, to rich interactive elements programmed in HTML5 and JavaScript. In a Versal lesson, all these elements of content are shown by pieces of HTML/JS code, called **gadgets**.
 
-Some gadgets are very simple - just showing a paragraph of text or an image. Other gadgets may show rich interactive graphics or present a quiz to the learner (and score it right away). Because gadgets are custom programmed, there is no limit on what you can do as a gadget developer. You can use any JS libraries and frameworks, communicate with any third-party Web servers, and use the Versal platform services to access image assets and other data.
+Some gadgets are very simple - just showing a paragraph of text or an image. Other gadgets may show rich interactive graphics or present a quiz to the learner (and score it right away). Because gadgets are custom programmed, there is no limit on what you can do as a gadget developer. You can load any JS libraries and frameworks, communicate with any third-party Web servers, and use the Versal platform services to access image assets and other persistent data.
 
-The Versal platform provides an authoring environment as well as a learning environment. So each gadget needs to have the **authoring mode** and the **learner mode**. The appearance and interactive functionality of gadgets may be quite different in these two modes. As a gadget developer, you will design and implement the learner's experience as well as the author's experience with your gadget.
+The Versal platform provides a course authoring environment as well as a learning environment. So each gadget needs to have the **authoring mode** and the **learner mode**. The appearance and interactive functionality of gadgets may be quite different in these two modes. As a gadget developer, you will design and implement the learner's experience as well as the course author's experience with your gadget.
+
+### How gadgets work
+
+A gadget is an HTML document that lives inside an `iframe`. The `iframe` for each gadget will be created automatically by the **Versal player** code, whenever a lesson document is opened either by a course author or by a learner.
+
+The gadget communicates with the player through the `postMessage` API, which passes serialized JSON data. Gadgets use this API to perform four basic functions:
+
+* get and set persistent configuration data (created by the course author) and learner-specific data (for the current learner)
+* obtain assets (images, videos) uploaded by the course author and stored on the Versal platform
+* securely store question/answer data and perform scoring (for quizzes and other challenges)
+* use some predefined visual features of the Versal player (the "empty gadget" view, the "property sheets", etc.)
 
 ### Example: the "word gallery" gadget
 
@@ -18,12 +29,13 @@ Imagine a gadget for learning French words. The gadget shows a gallery of images
 
 The author of the course will initially select the images and the words and put them into a certain sequence. Each learner can sign in to Versal.com from any computer and will always see the word selected in their most recent session.
 
-The gadget code needs to provide a UI for the course author as well as for the learners. The Versal platform takes care of persistently storing the gadget configuration and the image assets. The platform also tracks each user's individual selections as the learners interact with the gadget.
+The gadget code needs to provide a UI for the course author as well as for the learners. The Versal platform takes care of persistently storing the gadget configuration data and the image or video assets. The platform also tracks each user's individual selections as the learners interact with the gadget.
+
 
 Installing the gadget SDK
 -------------------------
 
-To begin developing gadgets, you need to install the development software. You will need:
+To begin developing gadgets, you will need:
 - Linux or Mac OS X (Windows may require further installation steps.)
 - [git](http://git-scm.com/book/en/Getting-Started-Installing-Git)
 - [node/npm](http://nodejs.org/)
@@ -34,7 +46,7 @@ To begin developing gadgets, you need to install the development software. You w
 
 ###### Versal/iframe-first-gadget repo doesn't exist yet!
 
-Check out the repositories [Versal/sdk](https://github.com/Versal/sdk), [Versal/player](https://github.com/Versal/player), and [Versal/iframe-first-gadget](https://github.com/Versal/iframe-first-gadget). It would be best to check them out side by side in the same directory.
+Check out the repositories [Versal/sdk](https://github.com/Versal/sdk), [Versal/player](https://github.com/Versal/player), and [Versal/iframe-first-gadget](https://github.com/Versal/iframe-first-gadget). It would help to check them out side by side in the same directory.
 
 In the `player` directory, run the commands
 
