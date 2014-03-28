@@ -23,11 +23,11 @@ The gadget communicates with the player through the `postMessage` API, which pas
 * securely store question/answer data and perform scoring (for quizzes and other challenges)
 * use some predefined visual features of the Versal player (the "empty gadget" view, the "property sheets", etc.)
 
-### Example: the "word gallery" gadget
+### Example: a "word gallery" gadget
 
 Imagine a gadget for learning French words. The gadget shows a gallery of images and the corresponding words. The learner can look at the words and the images one by one, passing to the next or to the previous word.
 
-The author of the course will initially select the images and the words and put them into a certain sequence. Each learner can sign in to Versal.com from any computer and will always see the word selected in their most recent session.
+The course author will select the images and the words and put them into a certain sequence. A learner can sign in to Versal.com from any computer and will always see the word last selected during their most recent session.
 
 The gadget code needs to provide a UI for the course author as well as for the learners. The Versal platform takes care of persistently storing the gadget configuration data and the image or video assets. The platform also tracks each user's individual selections as the learners interact with the gadget.
 
