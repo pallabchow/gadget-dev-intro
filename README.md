@@ -27,11 +27,11 @@ To begin developing gadgets, you need to install the development software.
 
 Linux and Mac OS are supported as development environments. (Windows may require further installation steps.)
 
-Make sure `git` and `npm` are installed on your development machine.
+Make sure [git](http://git-scm.com/book/en/Getting-Started-Installing-Git) and [node/npm](http://nodejs.org/) are installed on your development machine.
 
-You will need to have an account on [versal.com](versal.com).
+You will need to have an account on [versal.com](http://versal.com).
 
-You also need read access to some of Versal's `github` repositories.
+You also need read access to some of [Versal's GitHub repositories](https://github.com/Versal).
 
 ###### Remove Versal/player requirement when Versal/sdk finally incorporates the player branch
 
