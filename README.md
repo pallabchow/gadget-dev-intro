@@ -378,12 +378,12 @@ Testing the gadget in a course
 
 ###### This requires some local configuration??
 
-Go to the `sdk` directory and run the command `grunt`. It will start a local server at the URL [localhost:3232](localhost:3232). Open this URL in your browser. You will see an empty course where you can use your gadget.
+Go to the `sdk` directory and run the command `grunt`. It will start a local server at the URL [localhost:3232](http://localhost:3232). Open this URL in your browser. You will see an empty course where you can use your gadget.
 
 Creating a course with your gadget
 -----------
 
-Go to [versal.com](versal.com), sign in, and create a new course. Click on the "Sandbox" tray in the bottom; you should see your new gadget available. Drag your gadget into the lesson and start using it.
+Go to [versal.com](http://versal.com), sign in, and create a new course. Click on the "Sandbox" tray in the bottom; you should see your new gadget available. Drag your gadget into the lesson and start using it.
 
 Updating the gadget
 -----------
