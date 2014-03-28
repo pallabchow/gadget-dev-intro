@@ -273,6 +273,66 @@ After receiving a new asset, the gadget may want to persist the asset data in it
 Challenges and scoring
 -------------------------
 
+Some gadgets show **challenges** to the learner. A challenge is an activity that the learner needs to go through, in order to achieve progress when studying the course. A challenge can be as simple as a multiple-choice question, or as complicated as an interactive game where it is required to achieve a certain score.
+
+A gadget will, in general, show an array of challenges. Examples of this are a quiz (an array of multiple-choice questions) or the music gadget (an array of guess-a-note challenges).
+
+The Versal platform offers some APIs to make scoring more secure and streamlined.
+
+Challenges are part of the gadget configuration and are selected by the course author. However, it may be necessary to store the challenges on the Versal platform so that scoring can be done securely.
+
+The course author will typically have the following workflow:
+
+* create a new instance of a challenge gadget
+* create a set of challenges in the gadget
+* later, edit the gadget configuration again and modify some challenge data
+
+Each time the challenge data is newly created or changed by the author, the new data needs to be registered with the Versal platform: the gadget posts the message `setChallenges`.
+
+If the author has previously already entered some challenge data, the gadget will receive the message `challengesChanged` early upon loading the gadget code.
+
+The body of these messages contains the challenge data in the form
+
+```
+data: {
+    challenges: [
+      { prompt: 'What does the fox say?', answers: 'y', scoring: 'strict' },
+      { prompt: 'What\'s my age again?', answers: 'b', scoring: 'strict' }
+    ]
+}
+```
+
+###### Need to check with Mike what these fields all mean.
+
+Each challenge specifies a scoring function, `scoring`. This function describes how the score is to be computed out of learner's response data and the correct answers.
+
+More formally, a scoring function is an algorithm that takes the learner's response data and the correct answer data, and returns a number between 0 and 1, for each question. The supported scoring functions are `strict`, `partial`, `subset`, and `range`.
+
+The JSON data formats of the learner's response data and the correct answer data must be chosen to be compatible with the scoring strategies.
+
+* ‘strict’: The score is 1 only if the learner’s response data is exactly equal to the correct answer data, regardless of the structure of that data. Otherwise the score is 0.
+
+* ‘partial’: the learner’s response data is an array, the correct answer data is an array, and the score is the percentage of array items that are exactly equal (and not null).
+
+* ‘subset’: the learner’s response data is an array, the correct answer data is an array, and the score is the percentage of learner’s values that are contained in the correct array.
+
+* ‘range’: the learner’s response data is a number N, the correct answer is an array of two numbers [A, B], and the score is 1 when N is in the range [A,B] and 0 otherwise.
+
+Here are some typical examples of scoring:
+
+Multiple-choice quizzes will use the ‘strict’ scoring when there is only one correct answer, and ‘subset’ scoring when the user needs to check “all answers that apply”.
+
+Example of ‘subset’ scoring: User response is [1,2]. Correct answer is [2,3,4]. Score is 33% because the user selected only 1 out of three correct items.
+
+SAT math questions: “what is one value of N such that …” will be scored using ‘range’.
+
+Quizlet: the user must match several pairs of items. This will use the ‘partial’ scoring.
+
+###### The API document is incomplete here, it shows an incorrect data structure for scoreChallenges!
+
+When the learner has answered the challenge, the gadget will post the message `scoreChallenges`. The data for this message contains the learner's response data.
+
+After scoring the learner's answers (which could happen locally or online), the player posts the message `scoreChanged`. The data for this message contains the total score and an array of individual scores for all challenges.
 
 
 Deploying the gadget
