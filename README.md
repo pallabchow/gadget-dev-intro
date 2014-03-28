@@ -104,9 +104,13 @@ The layout of `manifest.json` is clear from this example (see [manifest.json](./
   "author": "sergei",   // username on Versal.com
   "defaultConfig": {  // default set of attributes for the gadget
     "__launcher": "iframe",  // will be phased out in the future, but necessary for now
+    "chosenColor" : "#00cc00",
+    "chosenWord" : "green"
     "username": "sergei" // necessary?
   },
-  "defaultUserState": {} // default learner state for the gadget
+  "defaultUserState": {
+    "isBold": false
+  } // default learner state for the gadget
 }
 ```
 
@@ -466,6 +470,19 @@ Sample gadget projects
 ======================
 
 To get you started, here are some sample gadget projects for you to examine.
+
+hello-world gadget
+-----------
+
+[Versal/gadget-dev-intro](https://github.com/Versal/gadget-dev-intro)
+
+This gadget shows a "hello, world" message with a custom word and color inserted by the course author. The learner can click this word and toggle the italics and boldface font on the message. The gadget also displays an image uploaded by the course author.
+
+- demonstrates the lifecycle of the gadget
+- uses property sheets, attributes, learner states, and asset handling
+- all messages (sent and received) are logged to console
+- code is commented
+
 
 highligher gadget
 ----------

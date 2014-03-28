@@ -56,12 +56,9 @@
     };
 
 
-    // Initialize: before the gadget is attached to the lesson's DOM.
-    Gadget.prototype.initialize = function() {
-        // subscribe to player events
-        window.addEventListener('message', this.receiveMessage.bind(this));
-
-        // set up a property sheet for color selection
+    // Need to configure the property sheet after attaching.
+    Gadget.prototype.setupPropertySheet = function() {
+        // set up a property sheet for word and color selection.
         this.sendMessage({
             event: 'setPropertySheetAttributes',
             data: {
@@ -69,16 +66,29 @@
                 chosenWord: { type: 'Text' }
             }
         });
+    };
 
-        // add click listener to toggle bold font
+    // Initialize: before the gadget is attached to the lesson's DOM.
+    Gadget.prototype.initialize = function() {
+
+        // subscribe to player events.
+        window.addEventListener('message', this.receiveMessage.bind(this));
+
+        this.setupPropertySheet();
+
+        // add click listener to toggle bold font.
         this.wordEl.onclick = this.toggleBoldWord.bind(this);
-
 
     };
 
-    // Methods that respond to some player events.
+    // Methods that respond to some player events. Other events will be ignored by this gadget.
+
+    Gadget.prototype.attach = function(jsonData) {
+        this.setupPropertySheet();
+    };
 
     Gadget.prototype.attributesChanged = function(jsonData) {
+
         // we expect only the attributes 'chosenColor' and 'chosenWord'.
         if (jsonData['chosenColor']) {
             this.config.authorState.chosenColor = jsonData.chosenColor;
@@ -115,7 +125,7 @@
             }
         });
         this.updateBoldWord();
-    }
+    };
 
     // Finished with defining the gadget class.
 

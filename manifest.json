@@ -7,7 +7,10 @@
   "author": "sergei",
   "defaultConfig": {
     "__launcher": "iframe",
-    "username": "Sergei Winitzki"
+      "chosenColor" : "#00cc00",
+      "chosenWord" : "green"
   },
-  "defaultUserState": {}
+  "defaultUserState": {
+      "isBold" : false
+  }
 }
