@@ -23,14 +23,20 @@ The gadget communicates with the player through the `postMessage` API, which pas
 * securely store question/answer data and perform scoring (for quizzes and other challenges)
 * use some predefined visual features of the Versal player (the "empty gadget" view, the "property sheets", etc.)
 
-### Example: a "word gallery" gadget
+This repository includes a basic "hello, world" gadget for you to get started. You can just open [assets/index.html](./assets/index.html) to see the gadget as viewed by a learner. The code in [assets/main.js](./assets/main.js) demonstrates how to use property sheets, the configuration data, and the learner-specific data.
+
+
+###### Verify that these repos exist and contain sample code (iframe-timeline and iframe-quiz don't exist yet!)
+
+Further sample gadgets are available in the repositories [Versal/highlightr_iframe](https://github.com/Versal/highlightr_iframe), [Versal/challenge-gadget](https://github.com/Versal/challenge-gadget), and [Versal/highlightr_iframe](https://github.com/Versal/highlightr_iframe).
+
+### Conceptual example: a "word gallery" gadget
 
 Imagine a gadget for learning French words. The gadget shows a gallery of images and the corresponding words. The learner can look at the words and the images one by one, passing to the next or to the previous word.
 
 The course author will select the images and the words and put them into a certain sequence. A learner can sign in to Versal.com from any computer and will always see the word last selected during their most recent session.
 
 The gadget code needs to provide a UI for the course author as well as for the learners. The Versal platform takes care of persistently storing the gadget configuration data and the image or video assets. The platform also tracks each user's individual selections as the learners interact with the gadget.
-
 
 Installing the gadget SDK
 -------------------------
@@ -44,9 +50,7 @@ To begin developing gadgets, you will need:
 
 ###### Remove Versal/player requirement when Versal/sdk finally incorporates the player branch
 
-###### Versal/iframe-first-gadget repo doesn't exist yet!
-
-Check out the repositories [Versal/sdk](https://github.com/Versal/sdk), [Versal/player](https://github.com/Versal/player), and [Versal/iframe-first-gadget](https://github.com/Versal/iframe-first-gadget). It would help to check them out side by side in the same directory.
+Check out this repository and the repositories [Versal/sdk](https://github.com/Versal/sdk), [Versal/player](https://github.com/Versal/player). It would help to check them out side by side in the same directory.
 
 In the `player` directory, run the commands
 
@@ -66,9 +70,9 @@ sudo npm link ../player
 
 This installs the system-wide command `versal`. With this command, you can test your gadgets and publish them on the Versal platform.
 
-The repository `Versal/iframe-first-gadget` contains a sample Versal gadget. To verify that your installation works, let's test this gadget in a Versal course.
+This repository, `Versal/gadget-dev-intro`, contains a sample Versal gadget. To verify that your installation works, let's test this gadget in a Versal course.
 
-In the `iframe-first-gadget` directory, run the command
+In the `versal-dev-intro` directory, run the command
 
 ```
 versal preview
@@ -76,11 +80,8 @@ versal preview
 
 This will start a local HTTP server on port `3000`. Open the URL [localhost:3000](http://localhost:3000) in a Web browser. You will see an empty lesson and a test gadget in the gadget tray below. Double-click on that gadget; you will see that the gadget has been added to the lesson. You have now tested the sample gadget!
 
-###### Verify that these repos exist and contain sample code (iframe-timeline and iframe-quiz don't exist yet!)
 
-Further sample gadgets are available in the repositories [Versal/gadget-markov-fu](https://github.com/Versal/gadget-markov-fu), [Versal/iframe-timeline](https://github.com/Versal/iframe-timeline), and [Versal/iframe-quiz](https://github.com/Versal/iframe-quiz).
-
-The basic layout
+The layout of files
 -----------------
 
 The Versal platform provides a **player** environment that loads the gadget in the context of a lesson, passes configuration data to the gadget, and receives learner's data from the gadget.
@@ -266,7 +267,7 @@ For the learner state, there is no property sheet option. Use the message `setLe
 Assets
 ------
 
-If your gadget displays images, the author must somehow provide these images when creating the lesson. The Versal platform allows the author to upload images and videos directly through the **asset** interface.
+If your gadget displays images, the author must somehow provide these images when creating the lesson. The Versal platform allows the author to upload images and videos directly through the **asset** API.
 
 The gadget asks the user to upload a new asset by posting a message like this:
 
@@ -301,11 +302,11 @@ The player displays a UI for uploading an asset. After an upload, the player pos
   }
 ```
 
-The structure of Versal assets is an array of `representations`, each item containing an image or a video at a certain resolution. Each representation is tagged as "original" or not; this shows whether the image or video was scaled down from its original size. (If you upload a small image, it will not be scaled down, and so there will be only one "representation", which will be `original`.)
+A Versal asset contains an array of `representations`. Each element of that array describes an image or a video, which may have been scaled down to a smaller size. One of the representations is tagged as `original:true`; this is the one that has not been scaled down.  (If you upload a small image, it will not be scaled down, and so there will be only one "representation", which will be `original`.)
 
 After getting a new asset, you may want to choose a representation and persist that representation's ID in the gadget's attributes, by posting `setAttributes` to the player.
 
-All uploaded assets are automatically processed (and scaled down if necessary). The resulting representations are stored in remote URLs. To display the image, you need to fetch the URL that corresponds to the representation's ID. You post a message `getPath`:
+All uploaded assets are automatically processed (and scaled down if necessary) by the Versal platform. The resulting representations are stored in remote URLs. To display the image, you need to fetch the URL that corresponds to the representation's ID. You post a message `getPath`:
 
 ```
 { event: 'getPath',
@@ -461,3 +462,25 @@ Suppose you already created some courses that use your gadget version `0.1.3`, a
 
 Go to the course you created where your gadget has been used. Click on the "Sandbox" tray and you will see that your gadget's icon has a band on it, indicating that an upgrade is available. Click on the band and confirm the upgrade to a new version.
 
+Sample gadget projects
+======================
+
+To get you started, here are some sample gadget projects for you to examine.
+
+highligher gadget
+----------
+
+[Versal/highlightr_iframe](https://github.com/Versal/highlightr_iframe)
+
+- the code uses no frameworks
+- `grunt` with `stylus` and `mocha` support
+- provides a reasonable path for testing the gadgets
+- provided a reasonable `postMessage` wrapper
+- code is commented
+
+challenge gadget
+---------
+
+[Versal/challenge-gadget](https://github.com/Versal/challenge-gadget)
+
+The gadget provides an example of using the challenge/scoring API.
