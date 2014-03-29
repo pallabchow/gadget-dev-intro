@@ -10,18 +10,18 @@ A course in the Versal platform consists of lessons. Each lesson can show all ki
 
 Some gadgets are very simple - just showing a paragraph of text or an image. Other gadgets may show rich interactive graphics or present a quiz to the learner (and score it right away). Because gadgets are custom programmed, there is no limit on what you can do as a gadget developer. You can load any JS libraries and frameworks, communicate with any third-party Web servers, and use the Versal platform services to access image assets and other persistent data.
 
-The Versal platform provides a course authoring environment as well as a learning environment. So each gadget needs to have the **authoring mode** and the **learner mode**. The appearance and interactive functionality of gadgets may be quite different in these two modes. As a gadget developer, you will design and implement the learner's experience as well as the course author's experience with your gadget.
+The Versal platform provides a **course player**, which is a learning environment and at the same time a course authoring environment. So each gadget needs to have the **learner mode** and the **authoring mode**. The appearance and interactive functionality of gadgets may be quite different in these two modes. As a gadget developer, you will design and implement the learner's experience as well as the course author's experience with your gadget.
 
 ### How gadgets work
 
-A gadget is an HTML document that lives inside an `iframe`. The `iframe` for each gadget will be created automatically by the **Versal player** code, whenever a lesson document is opened either by a course author or by a learner.
+A gadget is an HTML document that lives inside an `iframe`. The `iframe` for each gadget will be created automatically by the Versal  player, whenever a lesson document is opened either by a course author or by a learner.
 
-The gadget communicates with the player through the `postMessage` API, which passes serialized JSON data. Gadgets use this API to perform four basic functions:
+The gadget communicates with the Versal player through the `postMessage` API, which passes serialized JSON data. Gadgets use this API to perform four basic functions:
 
 * get and set persistent configuration data (created by the course author) and learner-specific data (for the current learner)
 * obtain assets (images, videos) uploaded by the course author and stored on the Versal platform
 * securely store question/answer data and perform scoring (for quizzes and other challenges)
-* use some predefined visual features of the Versal player (the "empty gadget" view, the "property sheets", etc.)
+* use some predefined visual features of the Versal player ("empty gadget" views, the "property sheets", etc.)
 
 This repository includes a basic "hello, world" gadget for you to get started. You can just open [assets/index.html](./assets/index.html) to see the gadget as viewed by a learner. The code in [assets/main.js](./assets/main.js) demonstrates how to use property sheets, the configuration data, and the learner-specific data.
 

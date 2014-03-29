@@ -79,6 +79,13 @@
         // add click listener to toggle bold font.
         this.wordEl.onclick = this.toggleBoldWord.bind(this);
 
+        this.sendMessage({
+            event: 'setHeight',
+            data: {
+                pixels: 400 // this is buggy in the current player branch!
+            }
+        });
+
     };
 
     // Methods that respond to some player events. Other events will be ignored by this gadget.
