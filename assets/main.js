@@ -79,24 +79,68 @@
         // add click listener to toggle bold font.
         this.wordEl.onclick = this.toggleBoldWord.bind(this);
 
+        // add click listener to upload new asset.
+        this.el.querySelector('.button-upload-image').onclick = this.requestUpload.bind(this);
+
+        // set gadget height.
         this.sendMessage({
             event: 'setHeight',
             data: {
-                pixels: 400 // this is buggy in the current player branch!
+                pixels: 400
             }
         });
 
+        // initially the gadget is empty, let's set this state.
+//        this.setEmpty();
+    };
+
+    Gadget.prototype.requestUpload = function() {
+        this.sendMessage({
+            event: 'newAsset',
+            data: {
+                messageId: 1,
+                type: 'image'
+            }
+        });
     };
 
     // Methods that respond to some player events. Other events will be ignored by this gadget.
 
-    Gadget.prototype.attach = function(jsonData) {
-        this.setupPropertySheet();
+    Gadget.prototype.setEditable = function(jsonData) {
+        this.config.isEditable = jsonData.editable;
+
+        // some elements have class 'authoring-only' and need to be hidden when we are in non-editable mode.
+        var visibilityForAuthor = this.config.isEditable ? 'visible' : 'hidden';
+
+        // set visibility on all such elements.
+        var elementsAuthoringOnly = document.getElementsByClassName('authoring-only');
+        for (var i = 0; i < elementsAuthoringOnly.length; ++i) {
+            var item = elementsAuthoringOnly[i];
+            item.setAttribute('style', 'visibility: ' + visibilityForAuthor + ';');
+        }
+    };
+
+    Gadget.prototype.setEmpty = function () {
+        this.sendMessage({
+            event: 'setEmpty'
+        });
+    };
+
+    Gadget.prototype.setAsset = function (data) {
+        this.config.asset = data.asset;
+        this.config.asset.messageId = data.messageId;
+        this.setAttributes({
+            asset: this.config.asset
+        });
+
+        if (this.el.innerHTML !== '') {
+            this.render(true);
+        }
     };
 
     Gadget.prototype.attributesChanged = function(jsonData) {
 
-        // we expect only the attributes 'chosenColor' and 'chosenWord'.
+        // we expect only the attributes 'chosenColor', 'chosenWord', 'imageId'.
         if (jsonData['chosenColor']) {
             this.config.authorState.chosenColor = jsonData.chosenColor;
             this.wordEl.setAttribute('style', 'color: ' + this.config.authorState.chosenColor);
@@ -105,6 +149,11 @@
             this.config.authorState.chosenWord = jsonData.chosenWord;
             this.wordEl.innerHTML = this.config.authorState.chosenWord;
         }
+        if (jsonData['imageId']) {
+            this.config.authorState.imageId = jsonData.imageId;
+            this.requestImageUrl();
+        }
+
     };
 
     Gadget.prototype.learnerStateChanged = function(jsonData) {
