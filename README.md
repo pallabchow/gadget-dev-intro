@@ -348,9 +348,9 @@ The course author will typically have the following workflow:
 * create a set of challenges in the gadget
 * later, edit the gadget configuration again and modify some challenge data
 
-Each time the challenge data is newly created or changed by the author, the new data needs to be registered with the Versal platform by sending a `setChallenges` event including an array of challenges in the appropriate format.
+Each time the challenge data is newly created or changed by the author, the new data needs to be registered with the Versal platform by sending a `setChallenges` message including an array of challenges in the appropriate format.
 
-If the author has previously already entered some challenge data, the gadget will receive the message `challengesChanged` when soon after the `attached` event.
+If the author has previously already entered some challenge data, the gadget will receive the message `challengesChanged` when soon after the `attached` message.
 
 The body of these messages contains the challenge data in the form
 
