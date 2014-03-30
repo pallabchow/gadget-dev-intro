@@ -20,7 +20,7 @@ The gadget communicates with the Versal player through the `postMessage` API, wh
 
 * get and set persistent configuration data (created by the course author) and learner-specific data (for the current learner)
 * obtain assets (images, videos) uploaded by the course author and stored on the Versal platform
-* securely store question/answer data and perform scoring (for quizzes and other challenges)
+* store question/answer data and perform scoring (for quizzes and other challenges)
 * use some predefined visual features of the Versal player ("empty gadget" views, the "property sheets", etc.)
 
 This repository includes a basic "hello, world" gadget for you to get started. You can just open [assets/index.html](./assets/index.html) to see the gadget as viewed by a learner. The code in [assets/main.js](./assets/main.js) demonstrates how to use property sheets, the configuration data, and the learner-specific data.
@@ -342,36 +342,68 @@ Some gadgets show **challenges** to the learner. A challenge is an activity that
 
 A gadget will, in general, show an array of challenges. Examples of this are a quiz (an array of multiple-choice questions) or the music gadget (an array of guess-a-note challenges).
 
-The Versal platform offers some APIs to make scoring more secure and streamlined.
-
-Challenges are part of the gadget configuration and are selected by the course author. However, it may be necessary to store the challenges on the Versal platform so that scoring can be done securely.
-
 The course author will typically have the following workflow:
 
 * create a new instance of a challenge gadget
 * create a set of challenges in the gadget
 * later, edit the gadget configuration again and modify some challenge data
 
-Each time the challenge data is newly created or changed by the author, the new data needs to be registered with the Versal platform: the gadget posts the message `setChallenges`.
+Each time the challenge data is newly created or changed by the author, the new data needs to be registered with the Versal platform by sending a `setChallenges` event including an array of challenges in the appropriate format.
 
-If the author has previously already entered some challenge data, the gadget will receive the message `challengesChanged` early upon loading the gadget code.
+If the author has previously already entered some challenge data, the gadget will receive the message `challengesChanged` when soon after the `attached` event.
 
 The body of these messages contains the challenge data in the form
 
 ```
-data: {
-    challenges: [
-      { prompt: 'What does the fox say?', answers: 'y', scoring: 'strict' },
-      { prompt: 'What\'s my age again?', answers: 'b', scoring: 'strict' }
-    ]
-}
+event: 'setChallenges'
+data:
+  challenges: [ {...}, {...}, {...} ]
 ```
 
-###### Need to check with Mike what these fields all mean.
+An example of an individual challenge that requires a user to answer a question by typing
 
-Each challenge specifies a scoring function, `scoring`. This function describes how the score is to be computed out of learner's response data and the correct answers.
+```
+prompt: 'What color is the sky?',
+answers: 'blue',
+scoring: 'strict'
+```
 
-More formally, a scoring function is an algorithm that takes the learner's response data and the correct answer data, and returns a number between 0 and 1, for each question. The supported scoring functions are `strict`, `partial`, `subset`, and `range`.
+The only required field is `prompt` and should contain whatever information your gadget needs to display the challenge to a learner. The optional `answers` field can contain whatever data is needed for your code to compute a *score*. Optionally `answers` can be appropriately formatted and scored using a predefind set of scoring functions. To use Versal's scoring your challenge object will declare which function to use in the `scoring` field of a challenge.
+
+A full challenge example
+
+```
+event: 'setChallenges'
+data:
+  challenges: [
+
+    // Strict matching on a textual answer
+    {
+      prompt: 'Play the middle C on the keyboard',
+      answers: 'C4',
+      scoring: 'strict'
+    },
+
+    // Choose a number in range
+    {
+      prompt: 'Choose any number between 2 and 5?',
+      answers: [2, 5],
+      scoring: 'range'
+    },
+
+    // Multiple choice
+    {
+      prompt: {
+        question: 'Solve 1 + x2 = 5 for x',
+        answers: [1, 2, 3]
+      },
+      answers: 2,
+      scoring: 'strict'
+    }
+  ]
+```
+
+A scoring function is an algorithm that takes the learner's response data and the correct answer data, and returns a number between 0 and 1, for each question. The supported scoring functions are `strict`, `partial`, `subset`, and `range`.
 
 The JSON data formats of the learner's response data and the correct answer data must be chosen to be compatible with the scoring strategies.
 
@@ -393,12 +425,17 @@ SAT math questions: “what is one value of N such that …” will be scored us
 
 Quizlet: the user must match several pairs of items. This will use the ‘partial’ scoring.
 
-###### The API document is incomplete here, it shows an incorrect data structure for scoreChallenges!
+When the learner has answered the challenge, the gadget will post the message `scoreChallenges`. The data for this message contains the learner's responses in an array corresponding the set of challenges.
 
-When the learner has answered the challenge, the gadget will post the message `scoreChallenges`. The data for this message contains the learner's response data.
+After scoring the learner's answers the player posts the message `scoresChanged`. The data for this message contains the total score and an array of individual scores for all challenges, total score, and the user's responses.
 
-After scoring the learner's answers (which could happen locally or online), the player posts the message `scoreChanged`. The data for this message contains the total score and an array of individual scores for all challenges.
-
+```
+event: 'scoresChanged'
+data:
+  scores: [1, 1, 0],
+  totalScore: 2,
+  responses: ['blue', 'green', 'yellow']
+```
 
 Deploying the gadget
 ===============
