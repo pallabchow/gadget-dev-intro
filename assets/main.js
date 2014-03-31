@@ -90,8 +90,9 @@
             }
         });
 
-        // initially the gadget is empty, let's set this state.
-//        this.setEmpty();
+        // initially the gadget is already not empty (it has "green" set). If it were otherwise, we would have done this:
+        // this.setEmpty();
+
     };
 
     Gadget.prototype.requestUpload = function() {
@@ -126,16 +127,39 @@
         });
     };
 
-    Gadget.prototype.setAsset = function (data) {
-        this.config.asset = data.asset;
-        this.config.asset.messageId = data.messageId;
-        this.setAttributes({
-            asset: this.config.asset
+    Gadget.prototype.setAsset = function (jsonData) {
+        // the course author has uploaded an asset. We need to store the asset info in the configuration and persist it.
+        // since this is course author's information, we persist it in the attributes.
+        this.config.authorState.asset = jsonData.asset;
+        this.sendMessage({
+            event: 'setAttributes',
+            data: {
+                asset: this.config.asset
+            }
         });
 
-        if (this.el.innerHTML !== '') {
-            this.render(true);
+        // now we can update the image element.
+        this.updateImage();
+
+    };
+
+    Gadget.prototype.updateImage = function() {
+        if (this.config.authorState.asset) {
+            // for simplicity, we will always use the first representation in the asset.
+            var imageId = this.config.authorState.asset.representations[0].id;
+            this.sendMessage({
+                event: 'getPath',
+                data: {
+                    messageId: 1,
+                    assetId: imageId
+                }
+            });
         }
+    };
+    Gadget.prototype.setPath = function(jsonData) {
+        var imageUrl = jsonData.url;
+        // now we set the image src attribute to this url.
+        this.el.querySelector('.sample-image').setAttribute('src', imageUrl);
     };
 
     Gadget.prototype.attributesChanged = function(jsonData) {
@@ -149,9 +173,9 @@
             this.config.authorState.chosenWord = jsonData.chosenWord;
             this.wordEl.innerHTML = this.config.authorState.chosenWord;
         }
-        if (jsonData['imageId']) {
-            this.config.authorState.imageId = jsonData.imageId;
-            this.requestImageUrl();
+        if (jsonData['asset']) {
+            this.config.authorState.asset = jsonData.asset;
+            this.updateImage();
         }
 
     };
@@ -186,7 +210,7 @@
     // Finished with defining the gadget class.
 
     // Instantiate the gadget, pass the DOM element, start listening to events.
+    new Gadget({ el: document.querySelector('body')});
     // This gadget instance will remain active because it has added itself as a listener to the window.
-    new Gadget({ el: document.querySelector('.main-container')});
 
 })();
