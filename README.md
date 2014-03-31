@@ -172,15 +172,11 @@ The gadget code must always react to these messages by adjusting the UI elements
 
 ## Attached / detached
 
-When the gadget has been attached to a DOM element in the lesson, the player posts the message `attached` to the gadget. The gadget should refresh its UI at this time.
-
-###### Correct?
+When the gadget has been attached to a DOM element in the lesson, the player posts the message `attached` to the gadget. The gadget may need to refresh its UI at this time.
 
 _After_ the gadget was removed from the lesson DOM, the player posts the `detached` message.
 
 ## Initial visual state
-
-###### Correct? These messages can be sent before receiving `attached`? Seems to work.
 
 At this early stage, when the gadget has not yet been attached to the lesson document, the gadget may also post the messages `setEmpty`, `setHeight`, and `setPropertySheetAttributes` to the player. These messages will configure some visual aspects of the gadget that are provided by the Versal platform.
 
@@ -324,9 +320,9 @@ The gadget can now use this URL to set the `img src=...` tag or to display a vid
 
 ## Challenges and scoring
 
-Some gadgets show **challenges** to the learner. A challenge is an activity that the learner needs to go through, in order to achieve progress when studying the course. A challenge can be as simple as a multiple-choice question, or as complicated as an interactive game where it is required to achieve a certain score.
+Some gadgets show **challenges** to the learner. A challenge is an activity that the learner needs to go through, in order to achieve progress when studying the course. A challenge can be as simple as a multiple-choice question, or as complicated as an interactive game where it is required to attain a certain score.
 
-A gadget will, in general, show an array of challenges. Examples of this are a quiz (an array of multiple-choice questions) or the music gadget (an array of guess-a-note challenges).
+A gadget will, in general, show an array of challenges. Examples of this are a quiz (an array of multiple-choice questions) or the music gadget (an array of guess-a-note challenges). Each challenge will be scored separately; the **score** of each challenge is a number between 0 and 1. The score for the entire gadget will be usually the sum of all scores for the individual challenges (but your gadget code could decide this differently, of course).
 
 The course author will typically have the following workflow:
 
@@ -334,11 +330,11 @@ The course author will typically have the following workflow:
 * create a set of challenges in the gadget
 * later, edit the gadget configuration again and modify some challenge data
 
-Each time the challenge data is newly created or changed by the author, the new data needs to be registered with the Versal platform by sending a `setChallenges` message including an array of challenges in the appropriate format.
+Each time the challenge data is newly created or changed by the author, the new data needs to be registered with the Versal platform by posting a `setChallenges` message, which carries an array of challenges in the appropriate format.
 
-If the author has previously already entered some challenge data, the gadget will receive the message `challengesChanged` when soon after the `attached` message.
+If the author has previously already entered some challenge data, the gadget will receive the message `challengesChanged` soon after the `attached` message.
 
-The body of these messages contains the challenge data in the form
+The body of the messages `setChallenges` and `challengesChanged` must contain the challenge data in the form
 
 ```
 event: 'setChallenges'
@@ -346,17 +342,17 @@ data:
   challenges: [ {...}, {...}, {...} ]
 ```
 
-An example of an individual challenge that requires a user to answer a question by typing
+An example of an individual challenge that requires a user to answer a question by typing the answer as text:
 
 ```
-prompt: 'What color is the sky?',
-answers: 'blue',
-scoring: 'strict'
+{ prompt: 'What color is the sky?',
+answerKey: 'blue',
+scoring: 'strict' }
 ```
 
-The only required field is `prompt` and should contain whatever information your gadget needs to display the challenge to a learner. The optional `answers` field can contain whatever data is needed for your code to compute a *score*. Optionally `answers` can be appropriately formatted and scored using a predefind set of scoring functions. To use Versal's scoring your challenge object will declare which function to use in the `scoring` field of a challenge.
+The only required field is `prompt`; it should contain whatever information your gadget needs to display the challenge to a learner. The optional field `answerKey` can contain whatever data is needed for your code to compute a score for this challenge. You may use Versal's scoring functionality; for this, the `answerKey` must be appropriately formatted, and a `scoring` method must be declared.
 
-A full challenge example
+A full challenge example:
 
 ```
 event: 'setChallenges'
@@ -389,38 +385,38 @@ data:
   ]
 ```
 
-A scoring function is an algorithm that takes the learner's response data and the correct answer data, and returns a number between 0 and 1, for each question. The supported scoring functions are `strict`, `partial`, `subset`, and `range`.
+A scoring function is an algorithm that takes the learner's response data and the correct answer data, and returns a score (between 0 and 1) for each question. The supported scoring functions are `strict`, `partial`, `subset`, and `range`.
 
-The JSON data formats of the learner's response data and the correct answer data must be chosen to be compatible with the scoring strategies.
+The JSON data formats of the learner's response data and the answer key data must be chosen to be compatible with the scoring strategies.
 
-* ‘strict’: The score is 1 only if the learner’s response data is exactly equal to the correct answer data, regardless of the structure of that data. Otherwise the score is 0.
+* `strict`: The score is 1 only if the learner’s response data is exactly equal to the answer key data, regardless of the structure of that data. Otherwise the score is 0.
 
-* ‘partial’: the learner’s response data is an array, the correct answer data is an array, and the score is the percentage of array items that are exactly equal (and not null).
+* `partial`: the learner’s response data is an array, the answer key is an array, and the score is the percentage of array items that are exactly equal (and not null).
 
-* ‘subset’: the learner’s response data is an array, the correct answer data is an array, and the score is the percentage of learner’s values that are contained in the correct array.
+* `subset`: the learner’s response data is an array, the answer key is an array, and the score is the percentage of learner’s values that are contained in the correct array.
 
-* ‘range’: the learner’s response data is a number N, the correct answer is an array of two numbers [A, B], and the score is 1 when N is in the range [A,B] and 0 otherwise.
+* `range`: the learner’s response data is a number N, the answer key is an array of two numbers [A,B], and the score is 1 when N is in the range [A,B] and 0 otherwise.
 
 Here are some typical examples of scoring:
 
-Multiple-choice quizzes will use the ‘strict’ scoring when there is only one correct answer, and ‘subset’ scoring when the user needs to check “all answers that apply”.
+Multiple-choice quizzes will use the `strict` scoring when there is only one correct answer, and `subset` scoring when the user needs to check “all answers that apply”.
 
-Example of ‘subset’ scoring: User response is [1,2]. Correct answer is [2,3,4]. Score is 33% because the user selected only 1 out of three correct items.
+Example of `subset` scoring: User response is [1,2]. Answer key is [2,3,4]. Score is 33% because the user selected only 1 out of three correct items.
 
-SAT math questions: “what is one value of N such that …” will be scored using ‘range’.
+SAT math questions are sometimes formulated like this: “what is one value of _X_ such that …”. Such questions will be scored using `range`, because an answer to such a question is correct when the number _X_ is within some known numeric range.
 
-Quizlet: the user must match several pairs of items. This will use the ‘partial’ scoring.
+[Quizlet](http://quizlet.com): the user must match several pairs of items. This will use the `partial` scoring function.
 
-When the learner has answered the challenge, the gadget will post the message `scoreChallenges`. The data for this message contains the learner's responses in an array corresponding the set of challenges.
+When the learner has answered all challenges, the gadget will post the message `scoreChallenges`. The data for this message contains the learner's responses as an array, in the same order as the array of challenges.
 
-After scoring the learner's answers the player posts the message `scoresChanged`. The data for this message contains the total score and an array of individual scores for all challenges, total score, and the user's responses.
+After scoring the learner's answers, the player posts the message `scoresChanged`. The data for this message contains the user's responses, the total score, and an array of individual scores for all challenges.
 
 ```
 event: 'scoresChanged'
 data:
-  scores: [1, 1, 0],
   totalScore: 2,
-  responses: ['blue', 'green', 'yellow']
+  responses: ['blue', 'green', 'yellow'],
+  scores: [1, 1, 0]
 ```
 
 # Deploying the gadget
