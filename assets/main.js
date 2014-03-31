@@ -79,24 +79,92 @@
         // add click listener to toggle bold font.
         this.wordEl.onclick = this.toggleBoldWord.bind(this);
 
+        // add click listener to upload new asset.
+        this.el.querySelector('.button-upload-image').onclick = this.requestUpload.bind(this);
+
+        // set gadget height.
         this.sendMessage({
             event: 'setHeight',
             data: {
-                pixels: 400 // this is buggy in the current player branch!
+                pixels: 400
             }
         });
 
+        // initially the gadget is already not empty (it has "green" set). If it were otherwise, we would have done this:
+        // this.setEmpty();
+
+    };
+
+    Gadget.prototype.requestUpload = function() {
+        this.sendMessage({
+            event: 'newAsset',
+            data: {
+                messageId: 1,
+                type: 'image'
+            }
+        });
     };
 
     // Methods that respond to some player events. Other events will be ignored by this gadget.
 
-    Gadget.prototype.attach = function(jsonData) {
-        this.setupPropertySheet();
+    Gadget.prototype.setEditable = function(jsonData) {
+        this.config.isEditable = jsonData.editable;
+
+        // some elements have class 'authoring-only' and need to be hidden when we are in non-editable mode.
+        var visibilityForAuthor = this.config.isEditable ? 'visible' : 'hidden';
+
+        // set visibility on all such elements.
+        var elementsAuthoringOnly = document.getElementsByClassName('authoring-only');
+        for (var i = 0; i < elementsAuthoringOnly.length; ++i) {
+            var item = elementsAuthoringOnly[i];
+            item.setAttribute('style', 'visibility: ' + visibilityForAuthor + ';');
+        }
+    };
+
+    Gadget.prototype.setEmpty = function () {
+        this.sendMessage({
+            event: 'setEmpty'
+        });
+    };
+
+    Gadget.prototype.setAsset = function (jsonData) {
+        // the course author has uploaded an asset. We need to store the asset info in the configuration and persist it.
+        // since this is course author's information, we persist it in the attributes.
+        this.config.authorState.asset = jsonData.asset;
+        this.sendMessage({
+            event: 'setAttributes',
+            data: {
+                asset: this.config.asset
+            }
+        });
+
+        // now we can update the image element.
+        this.updateImage();
+
+    };
+
+    Gadget.prototype.updateImage = function() {
+        if (this.config.authorState.asset) {
+            // for simplicity, we will always use the first representation in the asset.
+            var imageId = this.config.authorState.asset.representations[0].id;
+            this.sendMessage({
+                event: 'getPath',
+                data: {
+                    messageId: 1,
+                    assetId: imageId
+                }
+            });
+        }
+    };
+    Gadget.prototype.setPath = function(jsonData) {
+        var imageUrl = jsonData.url;
+        // now we set the image src attribute to this url.
+        this.el.querySelector('.sample-image').setAttribute('src', imageUrl);
     };
 
     Gadget.prototype.attributesChanged = function(jsonData) {
 
-        // we expect only the attributes 'chosenColor' and 'chosenWord'.
+        // we expect only the attributes 'chosenColor', 'chosenWord', 'imageId'.
         if (jsonData['chosenColor']) {
             this.config.authorState.chosenColor = jsonData.chosenColor;
             this.wordEl.setAttribute('style', 'color: ' + this.config.authorState.chosenColor);
@@ -105,6 +173,11 @@
             this.config.authorState.chosenWord = jsonData.chosenWord;
             this.wordEl.innerHTML = this.config.authorState.chosenWord;
         }
+        if (jsonData['asset']) {
+            this.config.authorState.asset = jsonData.asset;
+            this.updateImage();
+        }
+
     };
 
     Gadget.prototype.learnerStateChanged = function(jsonData) {
@@ -137,7 +210,7 @@
     // Finished with defining the gadget class.
 
     // Instantiate the gadget, pass the DOM element, start listening to events.
+    new Gadget({ el: document.querySelector('body')});
     // This gadget instance will remain active because it has added itself as a listener to the window.
-    new Gadget({ el: document.querySelector('.main-container')});
 
 })();
