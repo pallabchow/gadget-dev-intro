@@ -422,7 +422,7 @@ versal preview
 
 This command starts a local HTTP server on port 3000. Open the URL [localhost:3000](http://localhost:3000) in a browser. You will see an empty lesson page and your gadget's icon in the bottom tray. Double-click on the gadget icon to insert the gadget into the lesson. This is how a course author will start using your gadget in a new course. You can now interact with your gadget, both as a course author and as a learner. (Click the "cogwheel" icon to toggle gadget editing.)
 
-Power tip: While this HTTP server is running, you can continue changing the gadget's code. Just refresh the browser to see the changes live!
+Power tip: While this HTTP server is running, you can continue changing the gadget's code. Just refresh the browser to see the changes live! (Except if you change `manifest.json`: then you need to restart `versal preview` to see the changes.)
 
 ## Deploying in sandbox
 
