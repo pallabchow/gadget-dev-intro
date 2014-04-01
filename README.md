@@ -104,9 +104,9 @@ You have now tested the sample gadget!
 # Versal SDK command reference
 
 * `versal`
-Prints usage information
+Prints usage information.
 * `versal -v`
-Prints version of the SDK installed.
+Prints the version of the SDK installed.
 * `versal create _gadget-name_`
 Creates a new empty gadget project in subdirectory `_gadget-name_`.
 * `versal preview`
@@ -138,7 +138,7 @@ The layout of `manifest.json` is clear from this example (see [manifest.json](./
   "version": "0.1.1",   // semantic version
   "title": "Hello, World",
   "description": "Demo gadget showing the basic API",
-  "author": "sergei",   // username on Versal.com
+  "author": "versal",   // username on Versal.com
   "launcher": "iframe",  // will be phased out in the future, but necessary for now
   "defaultConfig": {  // default set of attributes for the gadget
     "chosenColor" : "#00cc00",
