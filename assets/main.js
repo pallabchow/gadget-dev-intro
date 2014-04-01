@@ -31,7 +31,7 @@
         // message has the structure { event: 'eventName', data: { ... } }
         var messageJson = JSON.parse(messageString.data);
 
-        console.log('received event ' + messageJson.event + ', data: ' + JSON.stringify(messageJson.data));
+        console.log('received message data ' + messageString.data + ', type of data: ' + typeof(messageString.data) + ', event ' + messageJson.event + ', data: ' + JSON.stringify(messageJson.data));
 
         // We will call the gadget's method named by the event, if this method exists.
         if (this[messageJson.event]) {
@@ -44,7 +44,7 @@
 
         console.log('sent event ' + messageJson.event + ', data: ' + JSON.stringify(messageJson.data));
 
-        window.parent.postMessage(messageString, '*');
+        window.parent.postMessage(messageString, window.location.origin);
     };
 
 

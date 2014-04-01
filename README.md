@@ -49,7 +49,7 @@ The gadget communicates with the Versal player through the `postMessage` API, wh
 
 This repository includes a basic "hello, world" gadget for you to get started. You can just open [assets/index.html](./assets/index.html) to see the gadget as viewed by a learner. The code in [assets/main.js](./assets/main.js) demonstrates how to use property sheets, the configuration data, and the learner-specific data.
 
-Further sample gadgets are available in the repositories [Versal/highlightr_iframe](https://github.com/Versal/highlightr_iframe), [Versal/challenge-gadget](https://github.com/Versal/challenge-gadget), and [Versal/highlightr_iframe](https://github.com/Versal/highlightr_iframe).
+Further sample gadgets are available in the repositories [Versal/highlightr-iframe](https://github.com/Versal/highlightr-iframe), [Versal/challenge-gadget](https://github.com/Versal/challenge-gadget), and [Versal/highlightr-iframe](https://github.com/Versal/highlightr-iframe).
 
 ### Conceptual example: a "word gallery" gadget
 
@@ -521,7 +521,7 @@ This gadget shows a "hello, world" message with a custom word and color inserted
 
 ## highlighter gadget
 
-[Versal/highlightr_iframe](https://github.com/Versal/highlightr_iframe)
+[Versal/highlightr-iframe](https://github.com/Versal/highlightr-iframe)
 
 - `grunt` with `stylus` and `mocha` support
 - provides a reasonable path for testing the gadgets
