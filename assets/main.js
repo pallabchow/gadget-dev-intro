@@ -31,11 +31,7 @@
         // message has the structure { event: 'eventName', data: { ... } }
         var messageJson = JSON.parse(messageString.data);
 
-        console.log({
-            direction: 'received',
-            event: messageJson.event,
-            data: messageJson.data
-        });
+        console.log('received event ' + messageJson.event + ', data: ' + JSON.stringify(messageJson.data));
 
         // We will call the gadget's method named by the event, if this method exists.
         if (this[messageJson.event]) {
@@ -46,11 +42,7 @@
     Gadget.prototype.sendMessage = function (messageJson) {
         var messageString = JSON.stringify(messageJson);
 
-        console.log({
-            direction: 'sent',
-            event: messageJson.event,
-            data: messageJson.data
-        });
+        console.log('sent event ' + messageJson.event + ', data: ' + JSON.stringify(messageJson.data));
 
         window.parent.postMessage(messageString, '*');
     };
@@ -97,9 +89,9 @@
 
     Gadget.prototype.requestUpload = function() {
         this.sendMessage({
-            event: 'newAsset',
+            event: 'requestAsset',
             data: {
-                messageId: 1,
+                attribute: 'chosenImage',
                 type: 'image'
             }
         });
@@ -127,22 +119,7 @@
         });
     };
 
-    Gadget.prototype.setAsset = function (jsonData) {
-        // the course author has uploaded an asset. We need to store the asset info in the configuration and persist it.
-        // since this is course author's information, we persist it in the attributes.
-        this.config.authorState.asset = jsonData.asset;
-        this.sendMessage({
-            event: 'setAttributes',
-            data: {
-                asset: this.config.asset
-            }
-        });
-
-        // now we can update the image element.
-        this.updateImage();
-
-    };
-
+    // this will request an image URL.
     Gadget.prototype.updateImage = function() {
         if (this.config.authorState.asset) {
             // for simplicity, we will always use the first representation in the asset.
@@ -156,6 +133,7 @@
             });
         }
     };
+
     Gadget.prototype.setPath = function(jsonData) {
         var imageUrl = jsonData.url;
         // now we set the image src attribute to this url.
@@ -164,7 +142,7 @@
 
     Gadget.prototype.attributesChanged = function(jsonData) {
 
-        // we expect only the attributes 'chosenColor', 'chosenWord', 'imageId'.
+        // we expect only the attributes 'chosenColor', 'chosenWord', 'chosenImage'.
         if (jsonData['chosenColor']) {
             this.config.authorState.chosenColor = jsonData.chosenColor;
             this.wordEl.setAttribute('style', 'color: ' + this.config.authorState.chosenColor);
@@ -173,8 +151,8 @@
             this.config.authorState.chosenWord = jsonData.chosenWord;
             this.wordEl.innerHTML = this.config.authorState.chosenWord;
         }
-        if (jsonData['asset']) {
-            this.config.authorState.asset = jsonData.asset;
+        if (jsonData['chosenImage']) {
+            this.config.authorState.asset = jsonData.chosenImage;
             this.updateImage();
         }
 

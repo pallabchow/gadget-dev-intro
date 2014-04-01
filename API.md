@@ -1,8 +1,12 @@
-# Contents
+# Gadget API
 
   1. [Player Events](#player-events)
-  2. [Gadget Events](#gadget-events)
-  2. [Two-way Events](#two-way-events)
+  1. [Gadget Events](#gadget-events)
+  1. [Two-way Events](#two-way-events)
+
+Optional APIs
+
+  1. [Challenges](challenges/README.md)
 
 ## Player Events
 
@@ -73,7 +77,7 @@ Events triggered by Gadgets
     baz: 2
   }
 }</pre></td>
-  <td>Persisting an updated set of attributes (PATCH)</td>
+  <td>Persisting an updated set of attributes (PATCH). Player replies with the confirmation message `attributesChanged`</td>
 </tr>
 
 <tr>
@@ -84,7 +88,7 @@ Events triggered by Gadgets
     baz: 2
   }
 }</pre></td>
-  <td>Persisting an updated set of learner attributes (PATCH)</td>
+  <td>Persisting an updated set of learner attributes (PATCH). Player replies with the confirmation message `learnerStateChanged`</td>
 </tr>
 
 <tr>
@@ -101,15 +105,15 @@ Events triggered by Gadgets
   <td><pre>{
   event: 'setPropertySheetAttributes'
   data: {
-    numberOfWords: {
+    selectAmount: {
       type: 'Range',
       min: 100,
       max: 500,
       step: 20
     },
-    chosenAuthor: {
+    chooseDay: {
       type: 'Select',
-      options: this.config.allowedAuthors
+      options: ['Monday', 'Wednesday', 'Friday', 'Any day']
     }
   }
 }</pre></td>
@@ -158,6 +162,16 @@ Events triggered by Gadgets
   <td>Indicate a potential change in lesson blocked-ness (e.g. after an assessment is submitted)</td>
 </tr>
 
+<tr>
+  <td><pre>{
+  event: 'requestAsset'
+  data: {
+    type: 'image'
+    attribute: 'myImage'
+  }
+}</pre></td>
+  <td>Request a new asset from a user. When delivered, it will be saved in the field given by the `attribute` property, and a corresponding `attributesChanged` event will be fired.</td>
+</tr>
 </table>
 
 ## Two-way Events
@@ -189,30 +203,6 @@ Events triggered by Gadgets, that require a response from the Player
   }
 }</pre></td>
   <td>Receive a fully qualified asset URL in return</td>
-</tr>
-
-<tr>
-  <td>Request</td>
-  <td><pre>{
-  event: 'newAsset'
-  data: {
-    messageId: 123
-    type: 'image'
-  }
-}</pre></td>
-  <td>Request a new asset from a user</td>
-</tr>
-
-<tr>
-  <td>Response</td>
-  <td><pre>{
-  event: 'setAsset'
-  data: {
-    messageId: 123
-    asset: {...}
-  }
-}</pre></td>
-  <td>Receive asset metadata in return</td>
 </tr>
 
 </table>
