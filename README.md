@@ -77,15 +77,15 @@ You have now tested the sample gadget!
 
 The Versal platform provides a **player** environment that loads the gadget in the context of a lesson, passes configuration data to the gadget, and receives learner's data from the gadget.
 
-Presently, a gadget is developed as a Web app - that is, as an individual HTML document. The player will first load the gadget's root file, `assets/index.html`. Any JS libraries or frameworks required by the gadget need to be loaded there by usual mechanisms supported by HTML5 (statically or asynchronously). The gadget's JS code should be loaded and started from this `index.html`, as in any ordinary Web app.
+Presently, a gadget is developed as a Web app - that is, as an individual HTML document. The player will first load the gadget's root file, `./index.html`. Any JS libraries or frameworks required by the gadget need to be loaded there by usual mechanisms supported by HTML5 (statically or asynchronously). The gadget's JS code should be loaded and started from this `index.html`, as in any ordinary Web app.
 
-In addition, each gadget must have an icon, `assets/icon.png`, and a `manifest.json` that specifies the gadget's current version, the Versal user who developed it, and other data.
+In addition, each gadget must have an icon as `assets/icon.png`, and a `manifest.json` that specifies the gadget's current version, the Versal user who developed it, and other data.
 
 The command
 
     versal create test1
 
-will create a new minimal gadget project in the subdirectory `test`. The project will contain just three files, `assets/index.html`, `assets/icon.png`, and `manifest.json`.
+will create a new minimal gadget project in the subdirectory `test`. The new project will contain just three files, `./index.html`, `assets/icon.png`, and `manifest.json`.
 
 The layout of `manifest.json` is clear from this example (see [manifest.json](./manifest.json) ):
 
