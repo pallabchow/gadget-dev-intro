@@ -484,19 +484,13 @@ The gadget will be published to the Versal platform. However, this gadget is pub
 
 ## Testing the gadget in a course
 
-###### This requires some local configuration??
-
-Go to the `sdk` directory and run the command `grunt`. It will start a local server at the URL [localhost:3232](http://localhost:3232). Open this URL in your browser. You will see an empty course where you can use your gadget.
-
-## Creating a course with your gadget
-
-Go to [staging.versal.com](http://staging.versal.com). You will need to authenticate; ask us for details. Sign in to `staging.versal.com`, and create a new course. Click on the "Sandbox" tray in the bottom; you should see your new gadget available. Drag your gadget into the lesson and start using it.
+Go to [staging.versal.com](http://staging.versal.com). You will need to authenticate; ask us for details. Sign in to `staging.versal.com` and create a new course. After you start editing the new course, click on the "Sandbox" tray in the bottom; you should see your new gadget available. Drag your gadget into the lesson and start using it.
 
 ## Updating a published gadget
 
 To update a published gadget, you need to do two things:
 
-- change the gadget version upwards (e.g. from `0.1.3` to `0.1.4`) in the `manifest.json`
+- change the gadget version upwards (e.g. from `0.1.3` to `0.1.4`) in `manifest.json`
 
 - publish the gadget again (`versal publish`)
 
