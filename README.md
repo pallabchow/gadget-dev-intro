@@ -101,20 +101,7 @@ This will start a local HTTP server on port `3000`. Now open the URL [localhost:
 
 You have now tested the sample gadget!
 
-# Versal SDK command reference
-
-* `versal`
-Prints usage information.
-* `versal -v`
-Prints the version of the SDK installed.
-* `versal create _gadget-name_`
-Creates a new empty gadget project in subdirectory `_gadget-name_`.
-* `versal preview`
-Run this in the gadget project directory. Starts a local HTTP server for previewing the gadget.
-* `versal signin`
-Sign in to Versal.com (necessary for authoring and publishing).
-* `versal publish`
-Run this in the gadget project directory. Will publish the current version of the gadget (as defined in `manifest.json`) to the Versal platform.
+The Versal SDK command reference can be found in the [Versal SDK repository](https://github.com/Versal/sdk).
 
 # The layout of a gadget project
 
