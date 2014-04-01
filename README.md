@@ -150,16 +150,15 @@ The gadget should listen to messages from the player, for example:
 
 ```
 window.addEventListener('message', function(evt) {
-  var message = JSON.parse(evt.data);
+  var message = evt.data;
   // process the message...
-
 });
 ```
 
 The gadget posts messages to the player with JSON data content `jsonData`, for example like this:
 
 ```
-window.parent.postMessage(JSON.stringify(jsonData), window.location.origin);
+window.parent.postMessage(jsonData, window.location.origin);
 ```
 
 The supported messages and their JSON formats are documented in the repository [Versal/gadget-api-spec](https://github.com/Versal/gadget-api-spec). Here we will describe how gadgets use these messages to communicate with the player.
