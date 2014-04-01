@@ -6,8 +6,8 @@
 ............ [Conceptual example: a "word gallery" gadget](#conceptual-example-a-"word-gallery"-gadget)<br/>
 ...... [Installing the Versal SDK](#installing-the-versal-sdk)<br/>
  [**The layout of files**](#the-layout-of-files)<br/>
-...... [Gadget/player messaging](#gadgetplayer-messaging)<br/>
  [**The gadget lifecycle**](#the-gadget-lifecycle)<br/>
+...... [Gadget/player messaging](#gadgetplayer-messaging)<br/>
 ...... [Gadget configuration](#gadget-configuration)<br/>
 ...... [Attached / detached](#attached--detached)<br/>
 ...... [Initial visual state](#initial-visual-state)<br/>
@@ -132,6 +132,8 @@ The layout of `manifest.json` is clear from this example (see [manifest.json](./
 }
 ```
 
+# The gadget lifecycle
+
 ## Gadget/player messaging
 
 The player communicates with the gadget through `postMessage`.
@@ -152,8 +154,6 @@ window.parent.postMessage(JSON.stringify(jsonData), '*');
 ```
 
 The supported messages and their JSON formats are documented in the repository [Versal/gadget-api-spec](https://github.com/Versal/gadget-api-spec). Here we will describe how gadgets use these messages to communicate with the player.
-
-# The gadget lifecycle
 
 ## Gadget configuration
 
