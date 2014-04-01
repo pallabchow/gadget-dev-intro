@@ -477,7 +477,7 @@ This gadget shows a "hello, world" message with a custom word and color inserted
 - the code is commented and uses no no frameworks
 
 
-## highligher gadget
+## highlighter gadget
 
 [Versal/highlightr_iframe](https://github.com/Versal/highlightr_iframe)
 
