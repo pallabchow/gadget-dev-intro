@@ -472,21 +472,19 @@ To get you started, here are some sample gadget projects for you to examine.
 
 This gadget shows a "hello, world" message with a custom word and color inserted by the course author. The learner can click this word and toggle the italics and boldface font on the message. The gadget also displays an image uploaded by the course author.
 
-- demonstrates the lifecycle of the gadget
-- uses property sheets, attributes, learner states, and asset handling
+- demonstrates property sheets, attributes, learner states, and asset handling
 - all messages (sent and received) are logged to console
-- code is commented
+- the code is commented and uses no no frameworks
 
 
 ## highligher gadget
 
 [Versal/highlightr_iframe](https://github.com/Versal/highlightr_iframe)
 
-- the code uses no frameworks
 - `grunt` with `stylus` and `mocha` support
 - provides a reasonable path for testing the gadgets
-- provided a reasonable `postMessage` wrapper
-- code is commented
+- provided a `postMessage` wrapper
+- the code is commented and uses no no frameworks
 
 ## challenge gadget
 
