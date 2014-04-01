@@ -33,7 +33,7 @@ The course author will select the images and the words and put them into a certa
 
 The gadget code needs to provide a UI for the course author as well as for the learners. The Versal platform takes care of persistently storing the gadget configuration data and the image or video assets. The platform also tracks each user's individual selections as the learners interact with the gadget.
 
-## Installing the gadget SDK
+## Installing the Versal SDK
 
 To begin developing gadgets, you will need:
 - Linux or Mac OS X (Windows may require further installation steps.)
@@ -41,19 +41,35 @@ To begin developing gadgets, you will need:
 - [node/npm](http://nodejs.org/)
 - a [Versal.com](http://versal.com) account
 
-Use npm to install Versal SDK:
+To install `git` and `npm` under Mac OS X:
+
+    brew install git
+    brew install npm
+
+To install `git` and `npm` under a recent Ubuntu Linux:
+
+    sudo apt-get install --yes git npm curl nodejs-legacy
+
+Once you have `npm`, you can install the Versal SDK:
 
     npm install -g versal-sdk
 
+(If this gives a permission error on your system, run `sudo npm install -g versal-sdk`.)
+
 This installs the system-wide command `versal`. With this command, you can test your gadgets and publish them on the Versal platform.
 
-This repository, `Versal/gadget-dev-intro`, contains a sample Versal gadget. To verify that your installation works, let's test this gadget in a Versal course.
+To verify that the Versal SDK has been installed, run the command `versal -v`. This should print the version (0.4.3 or higher).
+
+This repository, `Versal/gadget-dev-intro`, contains a sample Versal gadget. To verify that your installation works, let's test this gadget in a Versal course. Checkout this repository:
+
+    git clone https://github.com/Versal/gadget-dev-intro
+    cd gadget-dev-intro
 
 In the `versal-dev-intro` directory, run the command
 
     versal preview
 
-This will start a local HTTP server on port `3000`. Open the URL [localhost:3000](http://localhost:3000) in a Web browser. You will see an empty lesson and a test gadget in the gadget tray below. Double-click on that gadget; you will see that the gadget has been added to the lesson.
+This will start a local HTTP server on port `3000`. Now open the URL [localhost:3000](http://localhost:3000) in a Web browser. You will see an empty lesson and a test gadget in the gadget tray below. Double-click on that gadget; you will see that the gadget has been added to the lesson.
 
 You have now tested the sample gadget!
 
@@ -61,11 +77,9 @@ You have now tested the sample gadget!
 
 The Versal platform provides a **player** environment that loads the gadget in the context of a lesson, passes configuration data to the gadget, and receives learner's data from the gadget.
 
-###### assets/index.html will be phased out in favor of ./index.html
+Presently, a gadget is developed as a Web app - that is, as an individual HTML document. The player will first load the gadget's root file, `index.html`. Any JS libraries or frameworks required by the gadget need to be loaded there by usual mechanisms supported by HTML5 (statically or asynchronously). The gadget's JS code should be started from this `index.html`, as in any ordinary Web app.
 
-Presently, a gadgets is developed as a Web app - that is, as an individual HTML document. The player will first load the gadget's root file, `assets/index.html`. Any JS libraries or frameworks required by the gadget need to be loaded there by usual mechanisms supported by HTML5 (statically or asynchronously). The gadget's JS code should be started from this `index.html`, as in any ordinary Web app.
-
-In addition, each gadget must have an icon, `assets/icon.png`, and a `manifest.json` that specifies the gadget's current version, the Versal user who developed it, and other data. (A minimal gadget can have just three files, `assets/index.html`, `assets/icon.png`, and `manifest.json`.)
+In addition, each gadget must have an icon, `assets/icon.png`, and a `manifest.json` that specifies the gadget's current version, the Versal user who developed it, and other data. (A minimal gadget can have just three files, `index.html`, `assets/icon.png`, and `manifest.json`.)
 
 The layout of `manifest.json` is clear from this example (see [manifest.json](./manifest.json) ):
 
@@ -107,9 +121,7 @@ The gadget posts messages to the player with JSON data content `jsonData`, for e
 window.parent.postMessage(JSON.stringify(jsonData), '*');
 ```
 
-###### This API documentation should be in a final state here.
-
-The supported messages and their JSON formats are documented in the file [API.md](./API.md). Here we will describe how gadgets use these messages to communicate with the player.
+The supported messages and their JSON formats are documented in the repository [Versal/gadget-api-spec](https://github.com/Versal/gadget-api-spec). Here we will describe how gadgets use these messages to communicate with the player.
 
 # The gadget lifecycle
 
@@ -416,7 +428,7 @@ versal preview
 
 This command starts a local HTTP server on port 3000. Open the URL [localhost:3000](http://localhost:3000) in a browser. You will see an empty lesson page and your gadget's icon in the bottom tray. Double-click on the gadget icon to insert the gadget into the lesson. This is how a course author will start using your gadget in a new course. You can now interact with your gadget, both as a course author and as a learner. (Click the "cogwheel" icon to toggle gadget editing.)
 
-Power tip: While this HTTP server is running, you can continue changing the gadget's code. Just refresh the browser to see the changes live! (Except if you change `manifest.json`: then you need to restart `versal preview` to see the changes.)
+Power tip: While this HTTP server is running, you can continue changing the gadget's code. Just refresh the browser to see the changes live! (Except if you change `manifest.json` then you need to restart `versal preview` to see the changes.)
 
 ## Deploying in sandbox
 
