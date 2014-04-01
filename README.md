@@ -58,9 +58,9 @@ Once you have `npm`, you can install the Versal SDK:
 
 This installs the system-wide command `versal`. With this command, you can test your gadgets and publish them on the Versal platform.
 
-To verify that the Versal SDK has been installed, run the command `versal -v`. This should print the version (0.4.3 or higher).
+To check that the Versal SDK has been installed, run the command `versal -v`. This should print the version (0.4.3 or higher).
 
-This repository, `Versal/gadget-dev-intro`, contains a sample Versal gadget. To verify that your installation works, let's test this gadget in a Versal course. Checkout this repository:
+To verify that your installation works, let's test a sample gadget. Clone this repository:
 
     git clone https://github.com/Versal/gadget-dev-intro
     cd gadget-dev-intro
@@ -77,9 +77,15 @@ You have now tested the sample gadget!
 
 The Versal platform provides a **player** environment that loads the gadget in the context of a lesson, passes configuration data to the gadget, and receives learner's data from the gadget.
 
-Presently, a gadget is developed as a Web app - that is, as an individual HTML document. The player will first load the gadget's root file, `index.html`. Any JS libraries or frameworks required by the gadget need to be loaded there by usual mechanisms supported by HTML5 (statically or asynchronously). The gadget's JS code should be started from this `index.html`, as in any ordinary Web app.
+Presently, a gadget is developed as a Web app - that is, as an individual HTML document. The player will first load the gadget's root file, `assets/index.html`. Any JS libraries or frameworks required by the gadget need to be loaded there by usual mechanisms supported by HTML5 (statically or asynchronously). The gadget's JS code should be loaded and started from this `index.html`, as in any ordinary Web app.
 
-In addition, each gadget must have an icon, `assets/icon.png`, and a `manifest.json` that specifies the gadget's current version, the Versal user who developed it, and other data. (A minimal gadget can have just three files, `index.html`, `assets/icon.png`, and `manifest.json`.)
+In addition, each gadget must have an icon, `assets/icon.png`, and a `manifest.json` that specifies the gadget's current version, the Versal user who developed it, and other data.
+
+The command
+
+    versal create test1
+
+will create a new minimal gadget project in the subdirectory `test`. The project will contain just three files, `assets/index.html`, `assets/icon.png`, and `manifest.json`.
 
 The layout of `manifest.json` is clear from this example (see [manifest.json](./manifest.json) ):
 
