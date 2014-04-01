@@ -97,7 +97,22 @@ This will start a local HTTP server on port `3000`. Now open the URL [localhost:
 
 You have now tested the sample gadget!
 
-# The layout of files
+# Versal SDK command reference
+
+* `versal`
+Prints help message.
+* `versal -v`
+Prints version information.
+* `versal create _gadget-name_`
+Creates a new empty gadget project in subdirectory `_gadget-name_`.
+* `versal preview`
+Run this in the gadget project directory. Starts a local HTTP server for previewing the gadget.
+* `versal signin`
+Sign in to Versal.com (necessary for authoring and publishing).
+* `versal publish`
+Run this in the gadget project directory. Will publish the current version of the gadget (as defined in `manifest.json`) to the Versal platform.
+
+# The layout of a gadget project
 
 The Versal platform provides a **player** environment that loads the gadget in the context of a lesson, passes configuration data to the gadget, and receives learner's data from the gadget.
 
