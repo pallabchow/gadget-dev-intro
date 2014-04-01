@@ -1,6 +1,7 @@
 # Beginning Versal gadget development
 
  [**Beginning Versal gadget development**](#beginning-versal-gadget-development)<br/>
+...... [API references](#api-references)<br/>
 ...... [Overview and concepts](#overview-and-concepts)<br/>
 ............ [How gadgets work](#how-gadgets-work)<br/>
 ............ [Conceptual example: a "word gallery" gadget](#conceptual-example-a-"word-gallery"-gadget)<br/>
@@ -19,13 +20,16 @@
 ...... [Testing locally](#testing-locally)<br/>
 ...... [Deploying in sandbox](#deploying-in-sandbox)<br/>
 ...... [Testing the gadget in a course](#testing-the-gadget-in-a-course)<br/>
-.............................. [This requires some local configuration??](#this-requires-some-local-configuration)<br/>
-...... [Creating a course with your gadget](#creating-a-course-with-your-gadget)<br/>
 ...... [Updating a published gadget](#updating-a-published-gadget)<br/>
  [**Sample gadget projects**](#sample-gadget-projects)<br/>
 ...... [hello-world gadget](#hello-world-gadget)<br/>
 ...... [highlighter gadget](#highlighter-gadget)<br/>
 ...... [challenge gadget](#challenge-gadget)<br/>
+
+## API references
+
+* [Gadget messaging API specification](https://github.com/Versal/gadget-api-spec)
+* [Versal SDK repository](https://github.com/Versal/sdk)
 
 ## Overview and concepts
 
