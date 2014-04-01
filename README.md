@@ -202,7 +202,7 @@ At this early stage, when the gadget has not yet been attached to the lesson doc
 
 The `setEmpty` message is relevant when editing; it tells the player to display a gadget placeholder. The author will see right away that the gadget is "empty" and cannot show any useful content yet. For instance, images need to be uploaded, or other content needs to be configured, before the gadget can show anything. Here is how an empty gadget looks:
 
-![empty gadget](./empty_gadget.png "Empty gadget")
+![empty gadget](./docs/empty_gadget.png "Empty gadget")
 
 The `setHeight` message specifies the desired pixel height of the gadget's window. The width of the window is fixed, equal to the total width of the lesson window. (In the Web browser, this is 724 px).
 
@@ -253,7 +253,7 @@ Example:
 
 Here is an example property sheet, showing a slider for a numerical value ("number of words") and a drop-down selection box ("chosen author"):
 
-![property sheet](./property_sheet_1.png "Property sheet")
+![property sheet](./docs/property_sheet_1.png "Property sheet")
 
 The property sheet in this screenshot was configured by the following message:
 
