@@ -25,13 +25,14 @@
 
     // Declare some methods of this class.
 
-    // Simple helper functions: marshalling/unmarshalling for JSON messages.
-    Gadget.prototype.receiveMessage = function (message) {
+    // Simple helper functions: forwarding JSON messages and logging to console.
+    Gadget.prototype.receiveMessage = function (messageObj) {
 
-        // message has the structure { event: 'eventName', data: { ... } }
-        var messageJson = message.data;
+        var messageJson = messageObj.data;
+        // message has the structure { .... data: { event: 'eventName', data: { ... } } ... }
+        // received messages are of MessageEvent class.
 
-        console.log('received message data ' + message.data + ', type of data: ' + typeof(message.data) + ', event ' + messageJson.event + ', data: ' + JSON.stringify(messageJson.data));
+        console.log('received message data ' + messageJson.data + ', type of data: ' + typeof(messageJson.data) + ', event ' + messageJson.event + ', data: ' + JSON.stringify(messageJson.data));
 
         // We will call the gadget's method named by the event, if this method exists.
         if (this[messageJson.event]) {
