@@ -43,7 +43,7 @@ To begin developing gadgets, you will need:
 
 Use npm to install Versal SDK:
 
-    npm install versal-sdk
+    npm install -g versal-sdk
 
 This installs the system-wide command `versal`. With this command, you can test your gadgets and publish them on the Versal platform.
 
