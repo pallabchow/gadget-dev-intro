@@ -1,11 +1,11 @@
 ## Contents
 
-&nbsp; [Beginning Versal gadget development](#beginning-versal-gadget-development)<br/>
-&nbsp;&nbsp; [Overview and concepts](#overview-and-concepts)<br/>
-&nbsp;&nbsp;&nbsp; [How gadgets work](#how-gadgets-work)<br/>
-&nbsp;&nbsp;&nbsp; [Conceptual example: a "word gallery" gadget](#conceptual-example-a-"word-gallery"-gadget)<br/>
-&nbsp;&nbsp; [Installing the Versal SDK](#installing-the-versal-sdk)<br/>
-&nbsp; [The layout of files](#the-layout-of-files)<br/>
+*&nbsp; [Beginning Versal gadget development](#beginning-versal-gadget-development)<br/>
+*&nbsp;&nbsp; [Overview and concepts](#overview-and-concepts)<br/>
+*&nbsp;&nbsp;&nbsp; [How gadgets work](#how-gadgets-work)<br/>
+*&nbsp;&nbsp;&nbsp; [Conceptual example: a "word gallery" gadget](#conceptual-example-a-"word-gallery"-gadget)<br/>
+-&nbsp;&nbsp; [Installing the Versal SDK](#installing-the-versal-sdk)<br/>
+-&nbsp; [The layout of files](#the-layout-of-files)<br/>
 &nbsp;&nbsp; [Gadget/player messaging](#gadgetplayer-messaging)
 &nbsp; [The gadget lifecycle](#the-gadget-lifecycle)
 &nbsp;&nbsp; [Gadget configuration](#gadget-configuration)
