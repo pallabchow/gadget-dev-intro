@@ -6,7 +6,6 @@
 ............ [Conceptual example: a "word gallery" gadget](#conceptual-example-a-"word-gallery"-gadget)<br/>
 ...... [Installing the Versal SDK](#installing-the-versal-sdk)<br/>
 ...... [Testing the hello-world gadget](#testing-the-hello-world-gadget)<br/>
- [**Versal SDK command reference**](#versal-sdk-command-reference)<br/>
  [**The layout of a gadget project**](#the-layout-of-a-gadget-project)<br/>
  [**The gadget lifecycle**](#the-gadget-lifecycle)<br/>
 ...... [Gadget/player messaging](#gadgetplayer-messaging)<br/>
@@ -90,7 +89,7 @@ To check that the Versal SDK has been installed, run the command `versal -v`. Th
 
 To verify that your installation works, let's test a sample gadget. Clone this repository:
 
-    git clone https://github.com/Versal/gadget-dev-intro
+    git clone git@github.com:Versal/gadget-dev-intro.git
     cd gadget-dev-intro
 
 In the `gadget-dev-intro` directory, run the command
