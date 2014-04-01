@@ -1,6 +1,30 @@
-# Beginning Versal gadget development
+&nbsp; [Beginning Versal gadget development](#beginning-versal-gadget-development)
+&nbsp;&nbsp; [Overview and concepts](#overview-and-concepts)
+&nbsp;&nbsp;&nbsp; [How gadgets work](#how-gadgets-work)
+&nbsp;&nbsp;&nbsp; [Conceptual example: a "word gallery" gadget](#conceptual-example-a-"word-gallery"-gadget)
+&nbsp;&nbsp; [Installing the Versal SDK](#installing-the-versal-sdk)
+&nbsp; [The layout of files](#the-layout-of-files)
+&nbsp;&nbsp; [Gadget/player messaging](#gadgetplayer-messaging)
+&nbsp; [The gadget lifecycle](#the-gadget-lifecycle)
+&nbsp;&nbsp; [Gadget configuration](#gadget-configuration)
+&nbsp;&nbsp; [Attached / detached](#attached--detached)
+&nbsp;&nbsp; [Initial visual state](#initial-visual-state)
+&nbsp;&nbsp; [Persisting the attributes and the learner state](#persisting-the-attributes-and-the-learner-state)
+&nbsp;&nbsp; [Assets](#assets)
+&nbsp;&nbsp; [Challenges and scoring](#challenges-and-scoring)
+&nbsp; [Deploying the gadget](#deploying-the-gadget)
+&nbsp;&nbsp; [Testing locally](#testing-locally)
+&nbsp;&nbsp; [Deploying in sandbox](#deploying-in-sandbox)
+&nbsp;&nbsp; [Testing the gadget in a course](#testing-the-gadget-in-a-course)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [This requires some local configuration??](#this-requires-some-local-configuration)
+&nbsp;&nbsp; [Creating a course with your gadget](#creating-a-course-with-your-gadget)
+&nbsp;&nbsp; [Updating a published gadget](#updating-a-published-gadget)
+&nbsp; [Sample gadget projects](#sample-gadget-projects)
+&nbsp;&nbsp; [hello-world gadget](#hello-world-gadget)
+&nbsp;&nbsp; [highlighter gadget](#highlighter-gadget)
+&nbsp;&nbsp; [challenge gadget](#challenge-gadget)
 
-###### H6 are items to be edited before releasing this document.
+# Beginning Versal gadget development
 
 ## Overview and concepts
 
