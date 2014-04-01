@@ -169,14 +169,14 @@ Keep in mind that the Versal platform expects the same gadget code to enable reg
 
 For this reason, the gadget configuration data has two main parts: the gadget's **attributes** and the **learner state**.
 
-The "attributes" are parameters of the gadget as configured by the course author. The "learner state" describes the particular learner's interaction with the gadget.
+The "attributes" are parameters of the gadget as configured by the course author, globally for all learners. The "learner state" describes the particular learner's interaction with the gadget.
 
 For the "word gallery" gadget, the attributes describe the array of words and images, as chosen by the course author. The learner state is the number of the last viewed item.
 
 Each gadget’s learner state is associated with the particular signed-in Versal user (who may or may not have authoring rights to the gadget).
-When editing the gadget, the author changes the gadget’s global properties (that is, the attributes), while the learner state properties can only be changed by each learner and only for the particular instance of the gadget instantiated for that individual learner. That learner can be the course author, too, since all authors are learners by virtue of being authenticated Versal users. But other learners cannot change the gadget's attributes.
+When editing the gadget, the author changes the gadget's attributes, while the learner state properties can only be changed by each learner and only for the particular instance of the gadget instantiated for that individual learner. That learner can be the course author, too, since all authors are learners by virtue of being authenticated Versal users. But other learners cannot change the gadget's attributes.
 
-How does the gadget receive its configuration data? Shortly after loading the gadget's `index.html`, the player posts a series of messages to the gadget: the `attributesChanged` and/or `learnerStateChanged` messages. These messages carry the attributes and the learner state for the gadget.
+How does the gadget receive its configuration data? Shortly after loading the gadget's `index.html`, the player posts a series of  `attributesChanged` and/or `learnerStateChanged` messages to the gadget. These messages carry the attributes and the learner state for the gadget.
 
 The configuration data always consists of a set of attributes; an attribute is just a key-value pair. As an example, the attributes for the "French word gallery" gadget might contain an array, such as
 
@@ -464,7 +464,7 @@ versal preview
 
 This command starts a local HTTP server on port 3000. Open the URL [localhost:3000](http://localhost:3000) in a browser. You will see an empty lesson page and your gadget's icon in the bottom tray. Double-click on the gadget icon to insert the gadget into the lesson. This is how a course author will start using your gadget in a new course. You can now interact with your gadget, both as a course author and as a learner. (Click the "cogwheel" icon to toggle gadget editing.)
 
-Power tip: While this HTTP server is running, you can continue changing the gadget's code. Just refresh the browser to see the changes live! (Except if you change `manifest.json` then you need to restart `versal preview` to see the changes.)
+Power tip: While this local HTTP server is running, you can continue changing the gadget's code. Just refresh the browser to see the changes live! (Except if you change `manifest.json` then you need to restart `versal preview` to see the changes.)
 
 ## Deploying in sandbox
 
@@ -516,8 +516,7 @@ This gadget shows a "hello, world" message with a custom word and color inserted
 
 - demonstrates property sheets, attributes, learner states, and asset handling
 - all messages (sent and received) are logged to console
-- the code is commented and uses no no frameworks
-
+- the code is commented and uses no frameworks
 
 ## highlighter gadget
 
@@ -525,12 +524,12 @@ This gadget shows a "hello, world" message with a custom word and color inserted
 
 - `grunt` with `stylus` and `mocha` support
 - provides a reasonable path for testing the gadgets
-- provided a `postMessage` wrapper
+- provides a `postMessage` wrapper
 - the code is commented and uses no no frameworks
 
 ## challenge gadget
 
 [Versal/challenge-gadgets](https://github.com/Versal/challenge-gadgets)
 
-- uses Challenge/Scoring API
+- uses the challenge/scoring API
 - shows use of a view framework
