@@ -40,16 +40,10 @@ To begin developing gadgets, you will need:
 - [git](http://git-scm.com/book/en/Getting-Started-Installing-Git)
 - [node/npm](http://nodejs.org/)
 - a [Versal.com](http://versal.com) account
-- read access to some of [Versal's GitHub repositories](https://github.com/Versal).
 
-Check out [Versal/gadget-dev-intro](https://github.com/Versal/gadget-dev-intro) and [Versal/sdk](https://github.com/Versal/sdk). It would help to check them out side by side in the same directory.
+Use npm to install Versal SDK:
 
-In the `sdk` directory, run the commands
-
-```
-npm install
-sudo npm link
-```
+    npm install -g versal-sdk
 
 This installs the system-wide command `versal`. With this command, you can test your gadgets and publish them on the Versal platform.
 
@@ -57,11 +51,11 @@ This repository, `Versal/gadget-dev-intro`, contains a sample Versal gadget. To 
 
 In the `versal-dev-intro` directory, run the command
 
-```
-versal preview
-```
+    versal preview
 
-This will start a local HTTP server on port `3000`. Open the URL [localhost:3000](http://localhost:3000) in a Web browser. You will see an empty lesson and a test gadget in the gadget tray below. Double-click on that gadget; you will see that the gadget has been added to the lesson. You have now tested the sample gadget!
+This will start a local HTTP server on port `3000`. Open the URL [localhost:3000](http://localhost:3000) in a Web browser. You will see an empty lesson and a test gadget in the gadget tray below. Double-click on that gadget; you will see that the gadget has been added to the lesson.
+
+You have now tested the sample gadget!
 
 # The layout of files
 
