@@ -488,6 +488,6 @@ This gadget shows a "hello, world" message with a custom word and color inserted
 
 ## challenge gadget
 
-[Versal/challenge-gadget](https://github.com/Versal/challenge-gadget)
+[Versal/challenge-gadgets](https://github.com/Versal/challenge-gadgets)
 
 The gadget provides an example of using the challenge/scoring API.
