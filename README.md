@@ -84,7 +84,7 @@ Once you have `npm`, you can install the Versal SDK:
 
 This installs the system-wide command `versal`. With this command, you can test your gadgets and publish them on the Versal platform.
 
-To check that the Versal SDK has been installed, run the command `versal -v`. This should print the version (0.4.3 or higher).
+To check that the Versal SDK has been installed, run the command `versal -v`. This should print the version (0.5.0 or higher).
 
 ## Testing the hello-world gadget
 
@@ -93,7 +93,7 @@ To verify that your installation works, let's test a sample gadget. Clone this r
     git clone https://github.com/Versal/gadget-dev-intro
     cd gadget-dev-intro
 
-In the `versal-dev-intro` directory, run the command
+In the `gadget-dev-intro` directory, run the command
 
     versal preview
 
@@ -104,9 +104,9 @@ You have now tested the sample gadget!
 # Versal SDK command reference
 
 * `versal`
-Prints help message.
+Prints usage information
 * `versal -v`
-Prints version information.
+Prints version of the SDK installed.
 * `versal create _gadget-name_`
 Creates a new empty gadget project in subdirectory `_gadget-name_`.
 * `versal preview`
@@ -134,7 +134,6 @@ The layout of `manifest.json` is clear from this example (see [manifest.json](./
 
 ```
 {
-  "username": "sergei",   // username on Versal.com
   "name": "hello-world",  // short name of gadget
   "version": "0.1.1",   // semantic version
   "title": "Hello, World",
@@ -160,16 +159,17 @@ The player communicates with the gadget through `postMessage`.
 The gadget should listen to messages from the player, for example:
 
 ```
-window.addEventListener('message', function(messageData) {
-	var data = JSON.parse(messageData);
-	// process the message...
+window.addEventListener('message', function(evt) {
+  var message = JSON.parse(evt.data);
+  // process the message...
+
 });
 ```
 
 The gadget posts messages to the player with JSON data content `jsonData`, for example like this:
 
 ```
-window.parent.postMessage(JSON.stringify(jsonData), '*');
+window.parent.postMessage(JSON.stringify(jsonData), window.location.origin);
 ```
 
 The supported messages and their JSON formats are documented in the repository [Versal/gadget-api-spec](https://github.com/Versal/gadget-api-spec). Here we will describe how gadgets use these messages to communicate with the player.
