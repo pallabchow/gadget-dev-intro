@@ -21,7 +21,7 @@ The gadget communicates with the Versal player through the `postMessage` API, wh
 * store question/answer data and perform scoring (for quizzes and other challenges)
 * use some predefined visual features of the Versal player ("empty gadget" views, the "property sheets", etc.)
 
-This repository includes a basic "hello, world" gadget for you to get started. You can just open [assets/index.html](./assets/index.html) to see the gadget as viewed by a learner. The code in [assets/main.js](./assets/main.js) demonstrates how to use property sheets, the configuration data, and the learner-specific data.
+This repository includes a basic "hello, world" gadget for you to get started. You can just open [index.html](./index.html) to see the gadget as viewed by a learner. The code in [assets/main.js](./assets/main.js) demonstrates how to use property sheets, assets, the configuration data, and the learner-specific data.
 
 Further sample gadgets are available in the repositories [Versal/highlightr_iframe](https://github.com/Versal/highlightr_iframe), [Versal/challenge-gadget](https://github.com/Versal/challenge-gadget), and [Versal/highlightr_iframe](https://github.com/Versal/highlightr_iframe).
 
