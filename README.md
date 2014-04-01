@@ -1,11 +1,13 @@
 # Beginning Versal gadget development
 
-[**Beginning Versal gadget development**](#beginning-versal-gadget-development)<br/>
+ [**Beginning Versal gadget development**](#beginning-versal-gadget-development)<br/>
 ...... [Overview and concepts](#overview-and-concepts)<br/>
 ............ [How gadgets work](#how-gadgets-work)<br/>
 ............ [Conceptual example: a "word gallery" gadget](#conceptual-example-a-"word-gallery"-gadget)<br/>
 ...... [Installing the Versal SDK](#installing-the-versal-sdk)<br/>
- [**The layout of files**](#the-layout-of-files)<br/>
+...... [Testing the hello-world gadget](#testing-the-hello-world-gadget)<br/>
+ [**Versal SDK command reference**](#versal-sdk-command-reference)<br/>
+ [**The layout of a gadget project**](#the-layout-of-a-gadget-project)<br/>
  [**The gadget lifecycle**](#the-gadget-lifecycle)<br/>
 ...... [Gadget/player messaging](#gadgetplayer-messaging)<br/>
 ...... [Gadget configuration](#gadget-configuration)<br/>
@@ -83,6 +85,8 @@ Once you have `npm`, you can install the Versal SDK:
 This installs the system-wide command `versal`. With this command, you can test your gadgets and publish them on the Versal platform.
 
 To check that the Versal SDK has been installed, run the command `versal -v`. This should print the version (0.4.3 or higher).
+
+## Testing the hello-world gadget
 
 To verify that your installation works, let's test a sample gadget. Clone this repository:
 
