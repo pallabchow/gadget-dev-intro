@@ -1,5 +1,5 @@
 //This code is from jQuery
-function AddClassToElement(elem,value){
+function addClassToElement(elem,value){
     var rspaces = /\s+/;
     var classNames = (value || "").split( rspaces );
     var className = " " + elem.className + " ",
@@ -11,7 +11,7 @@ function AddClassToElement(elem,value){
     }
     elem.className = setClass.replace(/^\s+|\s+$/g,'');//trim
 }
-function RemoveClassFromElement(elem,value){
+function removeClassFromElement(elem,value){
     var rspaces = /\s+/;
     var rclass = /[\n\t]/g
     var classNames = (value || "").split( rspaces );
