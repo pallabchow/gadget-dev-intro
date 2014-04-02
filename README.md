@@ -41,7 +41,7 @@ The Versal platform provides a **course player**, which is simultaneously a lear
 
 ### How gadgets work
 
-A gadget is an HTML document that lives inside an `iframe`. The `iframe` for each gadget will be created automatically by the Versal player whenever a lesson document is opened either by a course author or by a learner.
+A gadget is an HTML document that lives inside an `iframe`. The `iframe` for each gadget will be created automatically by the Versal player whenever a lesson document is opened by either a course author or a learner.
 
 The gadget communicates with the Versal player through the `postMessage` API, which passes serialized JSON data. Gadgets use this API to perform four basic functions:
 
