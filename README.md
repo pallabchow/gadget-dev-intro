@@ -25,6 +25,7 @@
 ...... [hello-world gadget](#hello-world-gadget)<br/>
 ...... [highlighter gadget](#highlighter-gadget)<br/>
 ...... [challenge gadget](#challenge-gadget)<br/>
+...... [educreations embed gadget](#educreations-embed-gadget)<br/>
 
 ## API references
 
@@ -529,3 +530,10 @@ This gadget shows a "hello, world" message with a custom word and color inserted
 
 - uses the challenge/scoring API
 - shows use of a view framework
+
+## educreations embed gadget
+
+[Versal/educreations-embed-gadget](https://github.com/Versal/educreations-embed-gadget)
+
+- Take the embed code from Educreations.com and make it a gadget
+- Backbone.js with Stylus.js for CSS and Handlebars.js for templating
