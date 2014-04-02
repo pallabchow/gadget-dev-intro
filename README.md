@@ -66,7 +66,7 @@ The gadget code needs to provide a UI for the course author as well as for the l
 ## Installing the Versal SDK
 
 To begin developing gadgets, you will need:
-- Linux or Mac OS X (Windows may require further installation steps.)
+- Linux, Mac OS X, or Windows
 - [git](http://git-scm.com/book/en/Getting-Started-Installing-Git)
 - [node/npm](http://nodejs.org/)
 - a [Versal.com](http://versal.com) account
