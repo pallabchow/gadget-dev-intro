@@ -79,6 +79,12 @@ To install `git` and `npm` under a recent Ubuntu Linux:
 
     sudo apt-get install --yes git npm curl nodejs-legacy
 
+To install `git` and `npm` under MS Windows:
+
+* Install `git` by downloading and running the EXE installer from [msysgit.github.com](http://msysgit.github.com)
+* Install `npm` and `node` from [nodejs.org](http://nodejs.org/download/) by downloading and running the MSI installer
+* Start "Git Bash" from the menu
+
 Once you have `npm`, you can install the Versal SDK:
 
     npm install -g versal-sdk
