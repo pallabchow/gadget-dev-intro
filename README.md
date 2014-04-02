@@ -5,25 +5,25 @@
 ............ [Conceptual example: a "word gallery" gadget](#conceptual-example-a-"word-gallery"-gadget)<br/>
 ...... [Installing the Versal SDK](#installing-the-versal-sdk)<br/>
 ...... [Testing the hello-world gadget](#testing-the-hello-world-gadget)<br/>
+...... [Other sample gadgets](#other-sample-gadgets)<br/>
+............ [hello-world gadget](#hello-world-gadget)<br/>
+............ [highlighter gadget](#highlighter-gadget)<br/>
+............ [challenge gadget](#challenge-gadget)<br/>
+............ [educreations embedding gadget](#educreations-embedding-gadget)<br/>
+ [**Deploying a gadget**](#deploying-a-gadget)<br/>
+...... [Testing locally](#testing-locally)<br/>
+...... [Deploying in sandbox](#deploying-in-sandbox)<br/>
+...... [Inserting a gadget into a course](#inserting-a-gadget-into-a-course)<br/>
+...... [Updating a published gadget](#updating-a-published-gadget)<br/>
  [**The layout of a gadget project**](#the-layout-of-a-gadget-project)<br/>
  [**The gadget lifecycle**](#the-gadget-lifecycle)<br/>
 ...... [Gadget/player messaging](#gadgetplayer-messaging)<br/>
 ...... [Gadget configuration](#gadget-configuration)<br/>
-...... [Attached / detached](#attached--detached)<br/>
+...... [Attached / Detached](#attached--detached)<br/>
 ...... [Initial visual state](#initial-visual-state)<br/>
 ...... [Persisting the attributes and the learner state](#persisting-the-attributes-and-the-learner-state)<br/>
 ...... [Assets](#assets)<br/>
 ...... [Challenges and scoring](#challenges-and-scoring)<br/>
- [**Deploying the gadget**](#deploying-the-gadget)<br/>
-...... [Testing locally](#testing-locally)<br/>
-...... [Deploying in sandbox](#deploying-in-sandbox)<br/>
-...... [Testing the gadget in a course](#testing-the-gadget-in-a-course)<br/>
-...... [Updating a published gadget](#updating-a-published-gadget)<br/>
- [**Sample gadget projects**](#sample-gadget-projects)<br/>
-...... [hello-world gadget](#hello-world-gadget)<br/>
-...... [highlighter gadget](#highlighter-gadget)<br/>
-...... [challenge gadget](#challenge-gadget)<br/>
-...... [educreations embed gadget](#educreations-embed-gadget)<br/>
 
 # Beginning Versal gadget development
 
