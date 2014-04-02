@@ -538,7 +538,7 @@ To install `grunt`, use the command
 
 ## challenge gadget
 
-[Versal/challenges-gadgets](https://github.com/Versal/challenges-gadgets)
+[Versal/matching-challenge-example-gadget](https://github.com/Versal/matching-challenge-example-gadget)
 
 - uses the challenge/scoring API
 - shows use of a view framework
