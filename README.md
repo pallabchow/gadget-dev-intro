@@ -34,9 +34,9 @@
 
 ## Overview and concepts
 
-A course in the Versal platform consists of lessons. Each lesson can show all kinds of content - from text, images, and videos, to rich interactive elements programmed in HTML5 and JavaScript. In a Versal lesson, all these elements of content are shown by pieces of HTML/JS code, called **gadgets**.
+A course in the Versal platform consists of lessons. Each lesson can have all kinds of content - from text, images, and videos, to rich interactive elements. In a Versal lesson, all these elements of content are shown by pieces of HTML/JS code, called **gadgets**.
 
-Some gadgets are very simple - just showing a paragraph of text or an image. Other gadgets may show rich interactive graphics or present a quiz to the learner (and score it right away). Because gadgets are custom programmed, there is no limit to what you can do as a gadget developer. You can load any JS libraries and frameworks, communicate with any third-party Web servers, and use the Versal platform services to access image assets and other persistent data.
+Some gadgets are very simple - just showing a paragraph of text or an image. Other gadgets may show interactive graphics or present a quiz to the learner (and score it right away). Because gadgets are custom programmed, there is no limit to what you can do as a gadget developer. You can load any JS libraries and frameworks, communicate with any third-party Web servers, and use the Versal platform services to access image assets and other persistent data.
 
 The Versal platform provides a **course player**, which is simultaneously a learning environment and a course authoring environment. So most gadgets -- certainly all nontrivial gadgets -- need to enable in-place configuration by course authors (this is known as **gadget editing**). The appearance and interactive functionality during gadget editing must be provided on top of the gadget's regular learner's UX. Versal is a strong supporter of [Bret Victor](http://worrydream.com/)’s ideas, and we highly recommend that you watch his [classic video](http://vimeo.com/36579366) before starting your first gadget.
 
