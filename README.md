@@ -36,13 +36,13 @@
 
 A course in the Versal platform consists of lessons. Each lesson can show all kinds of content - from text, images, and videos, to rich interactive elements programmed in HTML5 and JavaScript. In a Versal lesson, all these elements of content are shown by pieces of HTML/JS code, called **gadgets**.
 
-Some gadgets are very simple - just showing a paragraph of text or an image. Other gadgets may show rich interactive graphics or present a quiz to the learner (and score it right away). Because gadgets are custom programmed, there is no limit on what you can do as a gadget developer. You can load any JS libraries and frameworks, communicate with any third-party Web servers, and use the Versal platform services to access image assets and other persistent data.
+Some gadgets are very simple - just showing a paragraph of text or an image. Other gadgets may show rich interactive graphics or present a quiz to the learner (and score it right away). Because gadgets are custom programmed, there is no limit to what you can do as a gadget developer. You can load any JS libraries and frameworks, communicate with any third-party Web servers, and use the Versal platform services to access image assets and other persistent data.
 
-The Versal platform provides a **course player**, which is a learning environment and at the same time a course authoring environment. So most gadgets -- certainly all nontrivial gadgets -- need to enable in-place configuration by course authors (this is known as **gadget editing**). The appearance and interactive functionality during gadget editing must be provided on top of the gadget's regular learner's UX. Versal is a strong supporter of [Bret Victor](http://worrydream.com/)’s ideas, and we highly recommend that you watch his [classic video](http://vimeo.com/36579366) before starting your first gadget.
+The Versal platform provides a **course player**, which is simultaneously a learning environment and a course authoring environment. So most gadgets -- certainly all nontrivial gadgets -- need to enable in-place configuration by course authors (this is known as **gadget editing**). The appearance and interactive functionality during gadget editing must be provided on top of the gadget's regular learner's UX. Versal is a strong supporter of [Bret Victor](http://worrydream.com/)’s ideas, and we highly recommend that you watch his [classic video](http://vimeo.com/36579366) before starting your first gadget.
 
 ### How gadgets work
 
-A gadget is an HTML document that lives inside an `iframe`. The `iframe` for each gadget will be created automatically by the Versal  player, whenever a lesson document is opened either by a course author or by a learner.
+A gadget is an HTML document that lives inside an `iframe`. The `iframe` for each gadget will be created automatically by the Versal player whenever a lesson document is opened by either a course author or a learner.
 
 The gadget communicates with the Versal player through the `postMessage` API, which passes serialized JSON data. Gadgets use this API to perform four basic functions:
 
@@ -51,7 +51,7 @@ The gadget communicates with the Versal player through the `postMessage` API, wh
 * store question/answer data and perform scoring (for quizzes and other challenges)
 * use some predefined visual features of the Versal player ("empty gadget" views, the "property sheets", etc.)
 
-This repository includes a basic "hello, world" gadget for you to get started. You can just open [assets/index.html](./assets/index.html) to see the gadget as viewed by a learner. The code in [assets/main.js](./assets/main.js) demonstrates how to use property sheets, the configuration data, and the learner-specific data.
+This repository includes a basic "Hello, World!" gadget for you to get started. You can just open [assets/index.html](./assets/index.html) to see the gadget as viewed by a learner. The code in [assets/main.js](./assets/main.js) demonstrates how to use property sheets, the configuration data, and the learner-specific data.
 
 Further sample gadgets are available in the repositories [Versal/highlightr-iframe](https://github.com/Versal/highlightr-iframe), [Versal/challenge-gadget](https://github.com/Versal/challenge-gadget), and [Versal/highlightr-iframe](https://github.com/Versal/highlightr-iframe).
 
@@ -100,7 +100,7 @@ To check that the Versal SDK has been installed, run the command `versal -v`. Th
 
 ## Testing the hello-world gadget
 
-To verify that your installation works, let's test a sample gadget. Clone this repository:
+To verify that your installation works, let's test a sample gadget. Clone this repository and move into its directory:
 
     git clone git@github.com:Versal/gadget-dev-intro.git
     cd gadget-dev-intro
@@ -127,7 +127,7 @@ The command
 
     versal create test1
 
-will create a new minimal gadget project in the subdirectory `test`. The project will contain just three files, `assets/index.html`, `assets/icon.png`, and `manifest.json`.
+will create a new minimal gadget project in the subdirectory `test1`. The project will contain just three files, `assets/index.html`, `assets/icon.png`, and `manifest.json`.
 
 The layout of `manifest.json` is clear from this example (see [manifest.json](./manifest.json) ):
 
@@ -164,7 +164,7 @@ window.addEventListener('message', function(evt) {
 });
 ```
 
-The gadget posts messages to the player with JSON data content `jsonData`, for example like this:
+The gadget posts messages to the player with JSON data content `jsonData`.  For example,
 
 ```
 window.parent.postMessage(jsonData, window.location.origin);
@@ -176,7 +176,7 @@ The supported messages and their JSON formats are documented in the repository [
 
 When the gadget code is first loaded, the gadget is not yet attached to a DOM node in the lesson document. At this point, the gadget should prepare to configure itself. The first messages arriving from the player will give the gadget its latest configuration data.
 
-Keep in mind that the Versal platform expects the same gadget code to enable regular learner UX and the additional editing UX. In the future releases, we plan to make it easy to separate the editing and the learner's UX. Then the Versal course player could avoid loading the gadget editing code when presenting a course to a learner, thereby improving performance and reducing bandwidth.
+Keep in mind that the Versal platform expects the same gadget code to enable regular learner UX and the additional editing UX. In future releases, we plan to make it easy to separate the editing and the learner's UX. Then the Versal course player could avoid loading the gadget editing code when presenting a course to a learner, thereby improving performance and reducing bandwidth.
 
 For this reason, the gadget configuration data has two main parts: the gadget's **attributes** and the **learner state**.
 
@@ -187,9 +187,9 @@ For the "word gallery" gadget, the attributes describe the array of words and im
 Each gadget’s learner state is associated with the particular signed-in Versal user (who may or may not have authoring rights to the gadget).
 When editing the gadget, the author changes the gadget's attributes, while the learner state properties can only be changed by each learner and only for the particular instance of the gadget instantiated for that individual learner. That learner can be the course author, too, since all authors are learners by virtue of being authenticated Versal users. But other learners cannot change the gadget's attributes.
 
-How does the gadget receive its configuration data? Shortly after loading the gadget's `index.html`, the player posts a series of  `attributesChanged` and/or `learnerStateChanged` messages to the gadget. These messages carry the attributes and the learner state for the gadget.
+How does the gadget receive its configuration data? Shortly after loading the gadget's `index.html`, the player posts a series of `attributesChanged` and/or `learnerStateChanged` messages to the gadget. These messages carry the attributes and the learner state for the gadget.
 
-The configuration data always consists of a set of attributes; an attribute is just a key-value pair. As an example, the attributes for the "French word gallery" gadget might contain an array, such as
+The configuration data always consists of a set of attributes - each attribute being a key-value pair. As an example, the attributes for the "French word gallery" gadget might contain an array, such as
 
 ```
 { words:
@@ -207,7 +207,7 @@ The gadget may also receive a `setEditable` message that indicates whether an au
 
 The gadget code must always react to these messages by adjusting the UI elements and/or storing the values internally. For example, the `setEditable` message can come at any time as the author toggles editing on and off. The same holds for `attributesChanged` and `learnerStateChanged`.
 
-## Attached / detached
+## Attached / Detached
 
 When the gadget has been attached to a DOM element in the lesson, the player posts the message `attached` to the gadget. The gadget may need to refresh its UI at this time.
 
@@ -217,7 +217,7 @@ _After_ the gadget was removed from the lesson DOM, the player posts the `detach
 
 At this early stage, when the gadget has not yet been attached to the lesson document, the gadget may also post the messages `setEmpty`, `setHeight`, and `setPropertySheetAttributes` to the player. These messages will configure some visual aspects of the gadget that are provided by the Versal platform.
 
-The `setEmpty` message is relevant when editing; it tells the player to display a gadget placeholder. The author will see right away that the gadget is "empty" and cannot show any useful content yet. For instance, images need to be uploaded, or other content needs to be configured, before the gadget can show anything. Here is how an empty gadget looks:
+The `setEmpty` message is relevant when editing; it tells the player to display a gadget placeholder. The author will see right away that the gadget is "empty" and cannot yet show any useful content. For instance, images need to be uploaded, or other content needs to be configured, before the gadget can show anything. Here is how an empty gadget looks:
 
 ![empty gadget](./docs/empty_gadget.png "Empty gadget")
 
@@ -287,7 +287,7 @@ The property sheet in this screenshot was configured by the following message:
 
 If the property sheets are not powerful enough for configuring your gadget, you can implement your own custom UI for the gadget editing. Your gadget should post the message `setAttributes` whenever you need to persist some changed attributes.
 
-For the learner state, there is no property sheet option. Use the message `setLearnerState` to persist any changes in the user state.
+There is no property sheet option for the learner state. Use the message `setLearnerState` to persist any changes in the user state.
 
 ## Assets
 
@@ -475,11 +475,11 @@ versal preview
 
 This command starts a local HTTP server on port 3000. Open the URL [localhost:3000](http://localhost:3000) in a browser. You will see an empty lesson page and your gadget's icon in the bottom tray. Double-click on the gadget icon to insert the gadget into the lesson. This is how a course author will start using your gadget in a new course. You can now interact with your gadget, both as a course author and as a learner. (Click the "cogwheel" icon to toggle gadget editing.)
 
-Power tip: While this local HTTP server is running, you can continue changing the gadget's code. Just refresh the browser to see the changes live! (Except if you change `manifest.json` then you need to restart `versal preview` to see the changes.)
+Pro tip: While this local HTTP server is running, you can continue changing the gadget's code. Just refresh the browser to see the changes live! (Except if you change `manifest.json` then you need to restart `versal preview` to see the changes.)
 
 ## Deploying in sandbox
 
-If you have never deployed your gadget yet, make sure that you sign in to Versal:
+If you haven't yet deployed your gadget, make sure that you sign in to Versal:
 
 ```
 versal signin
@@ -491,11 +491,11 @@ Go to the gadget directory and run the command
 versal publish
 ```
 
-The gadget will be published to the Versal platform. However, this gadget is published in a "sandbox": it is not approved for the entire world to see, and will be visible only in courses authored by yourself.
+The gadget will be published to the Versal platform. However, this gadget is published in a "sandbox". It is not yet approved for the entire world to see, and will be visible only in courses authored by yourself.
 
 ## Testing the gadget in a course
 
-Go to [staging.versal.com](http://staging.versal.com). You will need to authenticate; ask us for details. Sign in to `staging.versal.com` and create a new course. After you start editing the new course, click on the "Sandbox" tray in the bottom; you should see your new gadget available. Drag your gadget into the lesson and start using it.
+Go to [staging.versal.com](http://staging.versal.com). You will need to authenticate; ask us for details. Sign in to `staging.versal.com` and create a new course. After you start editing the new course, click on the "Sandbox" tray in the bottom; you should see your new gadget available. Drag your gadget into the lesson to start using it.
 
 ## Updating a published gadget
 
