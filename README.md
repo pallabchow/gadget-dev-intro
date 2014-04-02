@@ -103,9 +103,9 @@ To check that the Versal SDK has been installed, run the command `versal -v`. Th
 To verify that your installation works, let's test a sample gadget. Clone this repository and move into its directory:
 
     git clone git@github.com:Versal/gadget-dev-intro.git
-    cd gadget-dev-intro
+    cd gadget-dev-intro/hello-world-gadget
 
-In the `gadget-dev-intro` directory, run the command
+In the `hello-world-gadget` directory, run the command
 
     versal preview
 
@@ -531,6 +531,10 @@ This gadget shows a "hello, world" message with a custom word and color inserted
 - provides a reasonable path for testing the gadgets
 - provides a `postMessage` wrapper
 - the code is commented and uses no no frameworks
+
+To install `grunt`, use the command
+
+    npm install -g grunt-cli
 
 ## challenge gadget
 
