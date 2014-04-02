@@ -24,7 +24,7 @@
   // Simple helper functions: forwarding JSON messages and logging to console.
   Gadget.prototype.receiveMessage = function (messageObj) {
     var messageJson = messageObj.data;
-    // message has the structure { .... data: { event: 'eventName', data: { ... } } ... }
+    // a received message has the structure { .... data: { event: 'eventName', data: { ... } } ... }
     // received messages are of MessageEvent class.
 
     console.log('Received message', messageObj);
@@ -37,7 +37,7 @@
 
   Gadget.prototype.sendMessage = function (messageJson) {
     console.log('Sending message', messageJson);
-
+    // an outgoing message has the structure {event: 'eventName', data: ... }
     window.parent.postMessage(messageJson, window.location.origin);
   };
 
