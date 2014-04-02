@@ -1,5 +1,3 @@
-# Beginning Versal gadget development
-
  [**Beginning Versal gadget development**](#beginning-versal-gadget-development)<br/>
 ...... [API references](#api-references)<br/>
 ...... [Overview and concepts](#overview-and-concepts)<br/>
@@ -26,6 +24,8 @@
 ...... [highlighter gadget](#highlighter-gadget)<br/>
 ...... [challenge gadget](#challenge-gadget)<br/>
 ...... [educreations embed gadget](#educreations-embed-gadget)<br/>
+
+# Beginning Versal gadget development
 
 ## API references
 
@@ -68,7 +68,7 @@ The gadget code needs to provide a UI for the course author as well as for the l
 To begin developing gadgets, you will need:
 - Linux, Mac OS X, or Windows
 - [git](http://git-scm.com/book/en/Getting-Started-Installing-Git)
-- [node/npm](http://nodejs.org/)
+- [node/npm](http://nodejs.org/)  You need `node` version 0.10.21 or newer.
 - a [Versal.com](http://versal.com) account
 
 To install `git` and `npm` under Mac OS X:
@@ -92,7 +92,7 @@ Once you have `npm`, you can install the Versal SDK:
 
     npm install -g versal-sdk
 
-(If this gives a permission error on your system, run `sudo npm install -g versal-sdk`.)
+(If this gives a permission error on your system, run `sudo npm install -g versal-sdk`. However, it is better to avoid using `sudo` for `npm`, if it is possible on your system.)
 
 This installs the system-wide command `versal`. With this command, you can test your gadgets and publish them on the Versal platform.
 
@@ -100,7 +100,9 @@ To check that the Versal SDK has been installed, run the command `versal -v`. Th
 
 ## Testing the hello-world gadget
 
-To verify that your installation works, let's test a sample gadget. Clone this repository and move into its directory:
+To verify that your installation works, let's test a sample gadget. This gadget shows a "hello, world" message with a custom word and color inserted by the course author. The learner can click on this word and toggle the italics and boldface font on the message. The gadget also displays an image uploaded by the course author.
+
+Clone this repository and move into its directory:
 
     git clone git@github.com:Versal/gadget-dev-intro.git
     cd gadget-dev-intro/hello-world-gadget
@@ -114,6 +116,101 @@ This will start a local HTTP server on port `3000`. Now open the URL [localhost:
 You have now tested the sample gadget!
 
 The Versal SDK command reference can be found in the [Versal SDK repository](https://github.com/Versal/sdk).
+
+## Other sample gadgets
+
+To get you started, here are some more sample gadget projects for you to examine.
+
+### hello-world gadget
+
+[Versal/gadget-dev-intro](https://github.com/Versal/gadget-dev-intro)
+
+You have just tested it.
+
+- demonstrates property sheets, attributes, learner states, and asset handling
+- all messages (sent and received) are logged to console
+- the code is commented and uses no frameworks
+
+### highlighter gadget
+
+[Versal/highlightr-iframe](https://github.com/Versal/highlightr-iframe)
+
+- `grunt` with `stylus` and `mocha` support
+- provides a reasonable path for testing the gadgets
+- provides a `postMessage` wrapper
+- the code is commented and uses no no frameworks
+
+To install `grunt`, use the command
+
+    npm install -g grunt-cli
+
+### challenge gadget
+
+[Versal/matching-challenge-example-gadget](https://github.com/Versal/matching-challenge-example-gadget)
+
+- uses the challenge/scoring API
+- shows use of a view framework
+
+### educreations embedding gadget
+
+[Versal/educreations-embed-gadget](https://github.com/Versal/educreations-embed-gadget)
+
+- Take the embed code from [educreations.com](http://educreations.com) and make it a gadget
+- Backbone.js with Stylus.js for CSS and Handlebars.js for templating
+
+# Deploying a gadget
+
+After you create the HTML and JS files for your gadget, you will want to test your gadget visually and then publish it. The deployment cycle looks like this:
+
+* Test the gadget locally on your development machine
+* Deploy the gadget in a "sandbox" on Versal.com
+* Create a course that uses your gadget
+* Develop, test, and deploy an updated version of the gadget
+* Update the gadget in the course(s) using it
+
+## Testing locally
+
+Go to the gadget directory (where `manifest.json` is located) and run the command
+
+```
+versal preview
+```
+
+This command starts a local HTTP server on port 3000. Open the URL [localhost:3000](http://localhost:3000) in a browser. You will see an empty lesson page and your gadget's icon in the bottom tray. Double-click on the gadget icon to insert the gadget into the lesson. This is how a course author will start using your gadget in a new course. You can now interact with your gadget, both as a course author and as a learner. (Click the "cogwheel" icon to toggle gadget editing.)
+
+Pro tip: While this local HTTP server is running, you can continue changing the gadget's code. Just refresh the browser to see the changes live! (Except if you change `manifest.json` then you need to restart `versal preview` to see the changes.)
+
+## Deploying in sandbox
+
+If you haven't yet deployed your gadget, make sure that you sign in to Versal:
+
+```
+versal signin
+```
+
+Go to the gadget directory and run the command
+
+```
+versal publish
+```
+
+The gadget will be published to the Versal platform. However, this gadget is published in a "sandbox". It is not yet approved for the entire world to see, and will be visible only in courses authored by yourself.
+
+## Inserting a gadget into a course
+
+Go to [staging.versal.com](http://staging.versal.com). You will need to authenticate; ask us for details. Sign in to `staging.versal.com` and create a new course. After you start editing the new course, click on the "Sandbox" tray in the bottom; you should see your new gadget available. Drag your gadget into the lesson to start using it.
+
+## Updating a published gadget
+
+To update a published gadget, you need to do two things:
+
+- change the gadget version upwards (e.g. from `0.1.3` to `0.1.4`) in `manifest.json`
+
+- publish the gadget again (`versal publish`)
+
+Suppose you already created some courses that use your gadget version `0.1.3`, and now you published an updated version `0.1.4`. When you do this, the courses do not automatically start using the updated version. To avoid breaking the existing courses, all older gadget versions will be preserved by the platform. The course authors need to agree explicitly to upgrade your gadget to a new version.
+
+Go to the course you created where your gadget has been used. Click on the "Sandbox" tray and you will see that your gadget's icon has a band on it, indicating that an upgrade is available. Click on the band and confirm the upgrade to a new version.
 
 # The layout of a gadget project
 
@@ -455,97 +552,3 @@ data:
   scores: [1, 1, 0]
 ```
 
-# Deploying the gadget
-
-After you create the HTML and JS files for your gadget, you will want to test your gadget visually and then publish it. The deployment cycle looks like this:
-
-* Test the gadget locally on your development machine
-* Deploy the gadget in a "sandbox" on Versal.com
-* Create a course that uses your gadget
-* Develop, test, and deploy an updated version of the gadget
-* Update the gadget in the course(s) using it
-
-## Testing locally
-
-Go to the gadget directory (where `manifest.json` is located) and run the command
-
-```
-versal preview
-```
-
-This command starts a local HTTP server on port 3000. Open the URL [localhost:3000](http://localhost:3000) in a browser. You will see an empty lesson page and your gadget's icon in the bottom tray. Double-click on the gadget icon to insert the gadget into the lesson. This is how a course author will start using your gadget in a new course. You can now interact with your gadget, both as a course author and as a learner. (Click the "cogwheel" icon to toggle gadget editing.)
-
-Pro tip: While this local HTTP server is running, you can continue changing the gadget's code. Just refresh the browser to see the changes live! (Except if you change `manifest.json` then you need to restart `versal preview` to see the changes.)
-
-## Deploying in sandbox
-
-If you haven't yet deployed your gadget, make sure that you sign in to Versal:
-
-```
-versal signin
-```
-
-Go to the gadget directory and run the command
-
-```
-versal publish
-```
-
-The gadget will be published to the Versal platform. However, this gadget is published in a "sandbox". It is not yet approved for the entire world to see, and will be visible only in courses authored by yourself.
-
-## Testing the gadget in a course
-
-Go to [staging.versal.com](http://staging.versal.com). You will need to authenticate; ask us for details. Sign in to `staging.versal.com` and create a new course. After you start editing the new course, click on the "Sandbox" tray in the bottom; you should see your new gadget available. Drag your gadget into the lesson to start using it.
-
-## Updating a published gadget
-
-To update a published gadget, you need to do two things:
-
-- change the gadget version upwards (e.g. from `0.1.3` to `0.1.4`) in `manifest.json`
-
-- publish the gadget again (`versal publish`)
-
-Suppose you already created some courses that use your gadget version `0.1.3`, and now you published an updated version `0.1.4`. When you do this, the courses do not automatically start using the updated version. To avoid breaking the existing courses, all older gadget versions will be preserved by the platform. The course authors need to agree explicitly to upgrade your gadget to a new version.
-
-Go to the course you created where your gadget has been used. Click on the "Sandbox" tray and you will see that your gadget's icon has a band on it, indicating that an upgrade is available. Click on the band and confirm the upgrade to a new version.
-
-# Sample gadget projects
-
-To get you started, here are some sample gadget projects for you to examine.
-
-## hello-world gadget
-
-[Versal/gadget-dev-intro](https://github.com/Versal/gadget-dev-intro)
-
-This gadget shows a "hello, world" message with a custom word and color inserted by the course author. The learner can click this word and toggle the italics and boldface font on the message. The gadget also displays an image uploaded by the course author.
-
-- demonstrates property sheets, attributes, learner states, and asset handling
-- all messages (sent and received) are logged to console
-- the code is commented and uses no frameworks
-
-## highlighter gadget
-
-[Versal/highlightr-iframe](https://github.com/Versal/highlightr-iframe)
-
-- `grunt` with `stylus` and `mocha` support
-- provides a reasonable path for testing the gadgets
-- provides a `postMessage` wrapper
-- the code is commented and uses no no frameworks
-
-To install `grunt`, use the command
-
-    npm install -g grunt-cli
-
-## challenge gadget
-
-[Versal/challenges-gadgets](https://github.com/Versal/challenges-gadgets)
-
-- uses the challenge/scoring API
-- shows use of a view framework
-
-## educreations embed gadget
-
-[Versal/educreations-embed-gadget](https://github.com/Versal/educreations-embed-gadget)
-
-- Take the embed code from Educreations.com and make it a gadget
-- Backbone.js with Stylus.js for CSS and Handlebars.js for templating
