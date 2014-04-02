@@ -551,4 +551,3 @@ data:
   responses: ['blue', 'green', 'yellow'],
   scores: [1, 1, 0]
 ```
-
