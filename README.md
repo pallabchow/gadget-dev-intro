@@ -51,7 +51,7 @@ The gadget communicates with the Versal player through the `postMessage` API, wh
 * store question/answer data and perform scoring (for quizzes and other challenges)
 * use some predefined visual features of the Versal player ("empty gadget" views, the "property sheets", etc.)
 
-This repository includes a basic "Hello, World!" gadget for you to get started. You can just open [assets/index.html](./assets/index.html) to see the gadget as viewed by a learner. The code in [assets/main.js](./assets/main.js) demonstrates how to use property sheets, the configuration data, and the learner-specific data.
+This repository includes a basic "Hello, World!" gadget for you to get started. Inside the `hello-world-gadget` directory, you can just open [index.html](./hello-world-gadget/index.html) to see the gadget as viewed by a learner. The code in [main.js](./hello-world-gadget/main.js) demonstrates how to use property sheets, the configuration data, and the learner-specific data.
 
 Further sample gadgets are available in the repositories [Versal/highlightr-iframe](https://github.com/Versal/highlightr-iframe), [Versal/challenges-gadgets](https://github.com/Versal/challenges-gadgets), and [Versal/highlightr-iframe](https://github.com/Versal/highlightr-iframe).
 
@@ -119,7 +119,7 @@ The Versal SDK command reference can be found in the [Versal SDK repository](htt
 
 The Versal platform provides a **player** environment that loads the gadget in the context of a lesson, passes configuration data to the gadget, and receives learner's data from the gadget.
 
-Presently, a gadget is developed as a Web app - that is, as an individual HTML document. The player will first load the gadget's root file, `assets/index.html`. Any JS libraries or frameworks required by the gadget need to be loaded there by usual mechanisms supported by HTML5 (statically or asynchronously). The gadget's JS code should be loaded and started from this `index.html`, as in any ordinary Web app.
+Presently, a gadget is developed as a Web app - that is, as an individual HTML document. The player will first load the gadget's root file, `index.html`. Any JS libraries or frameworks required by the gadget need to be loaded there by usual mechanisms supported by HTML5 (statically or asynchronously). The gadget's JS code should be loaded and started from this `index.html`, as in any ordinary Web app.
 
 In addition, each gadget must have an icon, `assets/icon.png`, and a `manifest.json` that specifies the gadget's current version, the Versal user who developed it, and other data.
 
@@ -127,9 +127,9 @@ The command
 
     versal create test1
 
-will create a new minimal gadget project in the subdirectory `test1`. The project will contain just three files, `assets/index.html`, `assets/icon.png`, and `manifest.json`.
+will create a new minimal gadget project in the subdirectory `test1`. The project will contain just three files, `index.html`, `assets/icon.png`, and `manifest.json`.
 
-The layout of `manifest.json` is clear from this example (see [manifest.json](./manifest.json) ):
+The layout of `manifest.json` is clear from this example (see [manifest.json](./hello-world-gadget/manifest.json) ):
 
 ```
 {
