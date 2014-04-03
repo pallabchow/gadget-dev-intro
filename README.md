@@ -246,6 +246,8 @@ The layout of `manifest.json` is clear from this example (see [manifest.json](./
 }
 ```
 
+The command `versal publish` needs to be run in the root of the gadget project directory. It will package _all_ files in the gadget project and upload them to the Versal platform. It is advisable to keep in this project directory only the files that are required for the gadget at run time. Put any other files (for example, source files, documentation, or other data) in some other directory, not under the gadget project directory.
+
 # The gadget lifecycle
 
 ## Gadget/player messaging
