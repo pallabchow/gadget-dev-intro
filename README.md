@@ -484,7 +484,7 @@ An example of an individual challenge that requires a user to answer a question 
 }
 ```
 
-The only required field is `prompt`; it should contain whatever information your gadget needs to display the challenge to a learner. The optional field `answerKey` can contain whatever data is needed for your code to compute a score for this challenge. You may use Versal's scoring functionality; for this, the `answerKey` must be appropriately formatted, and a `scoring` method must be declared.
+The only required field is `prompt`; it should contain whatever information your gadget needs to display the challenge to a learner. The optional field `answers` can contain whatever data is needed for your code to compute a score for this challenge. You may use Versal's scoring functionality; for this, the `answers` must be appropriately formatted, and a `scoring` method must be declared.
 
 A full challenge example:
 
@@ -542,7 +542,7 @@ SAT math questions are sometimes formulated like this: “what is one value of _
 When the learner has answered all challenges, the gadget will post the message `scoreChallenges`. The data for this message contains the learner's responses as an array, in the same order as the array of challenges.
 
 ```
-event: 'scoreChallanges'
+event: 'scoreChallenges'
 data: [ 'answer_one', 'answer_two' ]
 ```
 
