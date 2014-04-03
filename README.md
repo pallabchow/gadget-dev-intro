@@ -471,51 +471,50 @@ The body of the messages `setChallenges` and `challengesChanged` must contain th
 
 ```
 event: 'setChallenges'
-data:
-  challenges: [ {...}, {...}, {...} ]
+data: [ {...}, {...}, {...} ]
 ```
 
 An example of an individual challenge that requires a user to answer a question by typing the answer as text:
 
 ```
-{ prompt: 'What color is the sky?',
-answerKey: 'blue',
-scoring: 'strict' }
+{ 
+  prompt: 'What color is the sky?',
+  answers: 'blue',
+  scoring: 'strict'
+}
 ```
 
-The only required field is `prompt`; it should contain whatever information your gadget needs to display the challenge to a learner. The optional field `answerKey` can contain whatever data is needed for your code to compute a score for this challenge. You may use Versal's scoring functionality; for this, the `answerKey` must be appropriately formatted, and a `scoring` method must be declared.
+The only required field is `prompt`; it should contain whatever information your gadget needs to display the challenge to a learner. The optional field `answers` can contain whatever data is needed for your code to compute a score for this challenge. You may use Versal's scoring functionality; for this, the `answers` must be appropriately formatted, and a `scoring` method must be declared.
 
 A full challenge example:
 
 ```
 event: 'setChallenges'
-data:
-  challenges: [
+data: [
+  // Strict matching on a textual answer
+  {
+    prompt: 'Play the middle C on the keyboard',
+    answers: 'C4',
+    scoring: 'strict'
+  },
 
-    // Strict matching on a textual answer
-    {
-      prompt: 'Play the middle C on the keyboard',
-      answers: 'C4',
-      scoring: 'strict'
+  // Choose a number in range
+  {
+    prompt: 'Choose any number between 2 and 5?',
+    answers: [2, 5],
+    scoring: 'range'
+  },
+
+  // Multiple choice
+  {
+    prompt: {
+      question: 'Solve 1 + x2 = 5 for x',
+      answers: [1, 2, 3]
     },
-
-    // Choose a number in range
-    {
-      prompt: 'Choose any number between 2 and 5?',
-      answers: [2, 5],
-      scoring: 'range'
-    },
-
-    // Multiple choice
-    {
-      prompt: {
-        question: 'Solve 1 + x2 = 5 for x',
-        answers: [1, 2, 3]
-      },
-      answers: 2,
-      scoring: 'strict'
-    }
-  ]
+    answers: 2,
+    scoring: 'strict'
+  }
+]
 ```
 
 A scoring function is an algorithm that takes the learner's response data and the correct answer data, and returns a score (between 0 and 1) for each question. The supported scoring functions are `strict`, `partial`, `subset`, and `range`.
@@ -541,6 +540,11 @@ SAT math questions are sometimes formulated like this: “what is one value of _
 [Quizlet](http://quizlet.com): the user must match several pairs of items. This will use the `partial` scoring function.
 
 When the learner has answered all challenges, the gadget will post the message `scoreChallenges`. The data for this message contains the learner's responses as an array, in the same order as the array of challenges.
+
+```
+event: 'scoreChallenges'
+data: [ 'answer_one', 'answer_two' ]
+```
 
 After scoring the learner's answers, the player posts the message `scoresChanged`. The data for this message contains the user's responses, the total score, and an array of individual scores for all challenges.
 
