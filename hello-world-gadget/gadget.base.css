@@ -6,13 +6,13 @@ html, body {
 }
 
 body {
-  font: 12px 'AvenirNextLTPro-Regular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font: 13px 'Helvetica Neue', Helvetica, Arial, sans-serif;
   word-wrap: break-word;
   color: #524e47;
 }
 
 html, button, input, select, textarea {
-  font-family: 'AvenirNextLTPro-Regular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #7c7975;
 }
 
