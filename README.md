@@ -254,7 +254,7 @@ The command `versal publish` needs to be run in the root of the gadget project d
 
 The player communicates with the gadget through `postMessage`.
 
-The gadget should listen to messages from the player, for example:
+To read messages from the Player, your gadget should add a listener to its own `window`:
 
 ```
 window.addEventListener('message', function(evt) {
@@ -263,10 +263,10 @@ window.addEventListener('message', function(evt) {
 });
 ```
 
-The gadget posts messages to the player with JSON data content `jsonData`.  For example,
+To pass messages back to the Player, your gadget should trigger them on its parent, without specifying a target origin:
 
 ```
-window.parent.postMessage(jsonData, window.location.origin);
+window.parent.postMessage({ foo: 'bar' }, '*');
 ```
 
 The supported messages and their JSON formats are documented in the repository [Versal/gadget-api-spec](https://github.com/Versal/gadget-api-spec). Here we will describe how gadgets use these messages to communicate with the player.
