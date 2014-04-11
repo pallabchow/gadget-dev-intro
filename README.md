@@ -104,7 +104,7 @@ To verify that your installation works, let's test a sample gadget. This gadget 
 
 Clone this repository and move into its directory:
 
-    git clone git@github.com:Versal/gadget-dev-intro.git
+    git clone https://github.com/Versal/gadget-dev-intro.git
     cd gadget-dev-intro/hello-world-gadget
 
 In the `hello-world-gadget` directory, run the command
