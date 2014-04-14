@@ -1,186 +1,83 @@
-(function(){
-  // Declare a gadget class.
-  var Gadget = function(options) {
-    // the main DOM element for attaching
-    this.el = options.el;
-    // the selected word
-    this.wordEl = this.el.querySelector('span.adjective');
+var player = new VersalPlayerAPI({
+  debug: true,
+  // Temporary workaround
+  assetUrlTemplate: 'http://localhost:3000/api/assets/'
+});
 
-    // the gadget's internal state, including the default values of all attributes and learner state.
-    this.config = {
-      isEditable: false,
-      authorState: {
-        chosenColor: 'green',
-        chosenWord: 'green'
+var Gadget = function(options) {
+  this.model = {};
+  this.el = document.body;
+
+  player.on('editableChanged', this.setModelAttribute.bind(this, 'editable'));
+  player.on('attributesChanged', this.setModelAttributes.bind(this));
+  player.on('learnerStateChanged', this.setModelAttributes.bind(this));
+  player.on('assetSelected', this.assetSelected.bind(this));
+  player.on('attached', this.render.bind(this));
+
+  player.setHeight(320);
+  player.connect();
+};
+
+Gadget.prototype.render = function(){
+  this.vm = new Vue({
+    el: this.el,
+    data: this.model,
+
+    computed: {
+      src: function(){
+        if(this.imageid) {
+          return player.assetUrl(this.imageid);
+        } else {
+          return null;
+        }
       },
-      learnerState: {
-        isBold: false       // whether the learner has made the chosen word bold.
+
+      buttonLabel: function(){
+        return this.imageid ? 'Replace image' : 'Set image';
       }
-    };
+    },
 
-    this.initialize();
-  };
+    methods: {
+      requestAsset: function(e){
+        player.requestAsset({ type: 'image' });
+      },
 
-  // Simple helper functions: forwarding JSON messages and logging to console.
-  Gadget.prototype.receiveMessage = function (messageObj) {
-    var messageJson = messageObj.data;
-    // a received message has the structure { .... data: { event: 'eventName', data: { ... } } ... }
-    // received messages are of MessageEvent class.
+      toggleFontStyle: function(){
+        if(this.editable) { return; }
+        this.fontstyle = (this.fontstyle == 'italic') ? 'normal': 'italic';
+      },
 
-    console.log('Received message', messageObj);
-
-    // We will call the gadget's method named by the event, if this method exists.
-    if (this[messageJson.event]) {
-      this[messageJson.event](messageJson.data);
-    }
-  };
-
-  Gadget.prototype.sendMessage = function (messageJson) {
-    console.log('Sending message', messageJson);
-    // an outgoing message has the structure {event: 'eventName', data: ... }
-    window.parent.postMessage(messageJson, window.location.origin);
-  };
-
-  // Need to configure the property sheet after attaching.
-  Gadget.prototype.setupPropertySheet = function() {
-    // set up a property sheet for word and color selection.
-    this.sendMessage({
-      event: 'setPropertySheetAttributes',
-      data: {
-        chosenColor: { type: 'Color' },
-        chosenWord: { type: 'Text' }
+      imageLoaded: function(e){
+        player.setHeight(e.target.scrollHeight);
       }
-    });
-  };
-
-  // Initialize: before the gadget is attached to the lesson's DOM.
-  Gadget.prototype.initialize = function() {
-      // subscribe to player events.
-      window.addEventListener('message', this.receiveMessage.bind(this));
-
-      this.setupPropertySheet();
-
-      // add click listener to toggle bold font.
-      this.wordEl.onclick = this.toggleBoldWord.bind(this);
-
-      // add click listener to upload new asset.
-      this.el.querySelector('.button-upload-image').onclick = this.requestUpload.bind(this);
-
-      // set gadget height.
-      this.sendMessage({
-        event: 'setHeight',
-        data: {
-          pixels: 400
-        }
-      });
-
-      // initially the gadget is already not empty (it has "green" set). If it were otherwise, we would have done this:
-      // this.setEmpty();
-
-  };
-
-  Gadget.prototype.requestUpload = function() {
-    this.sendMessage({
-      event: 'requestAsset',
-      data: {
-        attribute: 'chosenImage',
-        type: 'image'
-      }
-    });
-  };
-
-  // Methods that respond to some player events. Other events will be ignored by this gadget.
-
-  Gadget.prototype.setEditable = function(jsonData) {
-    this.config.isEditable = jsonData.editable;
-
-    // some elements have class 'authoring-only' and need to be hidden when we are in non-editable mode.
-    var visibilityForAuthor = this.config.isEditable ? 'visible' : 'hidden';
-
-    // set visibility on all such elements.
-    var elementsAuthoringOnly = document.getElementsByClassName('authoring-only');
-    for (var i = 0; i < elementsAuthoringOnly.length; ++i) {
-      var item = elementsAuthoringOnly[i];
-      item.setAttribute('style', 'visibility: ' + visibilityForAuthor + ';');
     }
-  };
+  });
 
-  Gadget.prototype.setEmpty = function () {
-    this.sendMessage({
-      event: 'setEmpty'
-    });
-  };
+  this.vm.$watch('word', player.setAttribute.bind(player, 'word'));
+  this.vm.$watch('fontstyle', player.setLearnerAttribute.bind(player, 'fontstyle'));
+};
 
-  // this will request an image URL.
-  Gadget.prototype.updateImage = function() {
-    if (this.config.authorState.asset) {
-      // for simplicity, we will always use the first representation in the asset.
-      var imageId = this.config.authorState.asset.representations[0].id;
-      this.sendMessage({
-        event: 'getPath',
-        data: {
-          messageId: 1,
-          assetId: imageId
-        }
-      });
-    }
-  };
 
-  Gadget.prototype.setPath = function(jsonData) {
-    var imageUrl = jsonData.url;
-    // now we set the image src attribute to this url.
-    this.el.querySelector('.sample-image').setAttribute('src', imageUrl);
-  };
+Gadget.prototype.setModelAttribute = function(key, value) {
+  var attr = {};
+  attr[key] = value;
+  this.setModelAttributes(attr);
+};
 
-  Gadget.prototype.attributesChanged = function(jsonData) {
+Gadget.prototype.setModelAttributes = function(attrs){
+  Object.keys(attrs).forEach(function(key){
+    this.model[key] = attrs[key];
+  }.bind(this));
+};
 
-    // we expect only the attributes 'chosenColor', 'chosenWord', 'chosenImage'.
-    if (jsonData.chosenColor) {
-      this.config.authorState.chosenColor = jsonData.chosenColor;
-      this.wordEl.setAttribute('style', 'color: ' + this.config.authorState.chosenColor);
-    }
-    if (jsonData.chosenWord) {
-      this.config.authorState.chosenWord = jsonData.chosenWord;
-      this.wordEl.innerHTML = this.config.authorState.chosenWord;
-    }
-    if (jsonData.chosenImage) {
-      this.config.authorState.asset = jsonData.chosenImage;
-      this.updateImage();
-    }
+Gadget.prototype.assetSelected = function(data){
+  var imageid = data.asset.representations[0].id;
+  player.setAttribute('imageid', imageid);
+};
 
-  };
+player.setPropertySheetAttributes({
+  color: { type: 'Color' },
+  word: { type: 'Text' }
+});
 
-  Gadget.prototype.learnerStateChanged = function(jsonData) {
-    // we expect only the attribute 'isBold'.
-    if (jsonData.isBold) {
-      this.config.learnerState.isBold = jsonData.isBold;
-      this.updateBoldWord();
-    }
-  };
-
-  Gadget.prototype.updateBoldWord = function() {
-    if (this.config.learnerState.isBold) {
-      addClassToElement(this.el, 'setBold');
-    } else {
-      removeClassFromElement(this.el, 'setBold');
-    }
-  };
-
-  Gadget.prototype.toggleBoldWord = function() {
-    this.config.learnerState.isBold = ! this.config.learnerState.isBold;
-    this.sendMessage({
-      event: 'setLearnerState',
-      data: {
-        isBold: this.config.learnerState.isBold
-      }
-    });
-    this.updateBoldWord();
-  };
-
-  // Finished with defining the gadget class.
-
-  // Instantiate the gadget, pass the DOM element, start listening to events.
-  new Gadget({ el: document.querySelector('body') });
-  // This gadget instance will remain active because it has added itself as a listener to the window.
-
-})();
+new Gadget();

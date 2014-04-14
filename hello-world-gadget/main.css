@@ -1,55 +1,58 @@
-.hello-container {
-  margin-top: 10px;
-  font-size: 20px;
-  text-align: center;
+body {
+  background: green;
+  margin-bottom: -3px;
 }
 
-.setBold {
+button {
+  font-size: 1.4em;
+  padding: 0.3em 1.3em;
+}
+
+img {
+  max-width: 100%;
+}
+
+.heading {
+  position: absolute;
+  top: 150px;
+  width: 100%;
+  text-align: center;
+  z-index: 2;
   font-weight: bold;
+  font-size: 30px;
+  line-height: 30px;
+  color: white;
+  cursor: default;
+}
+
+.word {
+  cursor: pointer;
+  user-select: none;
+}
+
+.word[contenteditable] {
+  border-bottom: 2px dotted white;
+  cursor: text;
+  user-select: text;
+}
+
+.word:empty:before {
+  content: 'word';
+  color: white;
+  font-weight: normal;
   font-style: italic;
 }
 
-.shaded {
-  background-color: #d0d0d0;
-  padding: 3px;
-  border-style: solid;
-  border-width: 1px;
-  border-color: #000000;
+.toolbar {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  line-height: 50px;
+  transition: opacity 500ms;
+  text-align: right;
+  visibility: hidden;
 }
 
-.explanation {
-  margin-top: 20px;
-  font-size: 14px;
-  font-style: italic;
-  text-align: center;
-}
-
-.authoring-only {
-  color: #606060;
-}
-
-.picture {
-  margin-left: 30px;
-  margin-top: 40px;
-  width: 300px;
-  border-style: solid;
-  border-width: 1px;
-  border-color: #c0c0c0;
-  padding: 5px;
-}
-
-.sample-image {
-  margin-top: 10px;
-}
-
-.image-caption {
-  margin-top: 10px;
-}
-
-.button-upload-image {
-  background: #e0f0d0;
-  padding: 3px;
-  border-style: solid;
-  border-width: 1px;
-  border-color: #101000;
+.toolbar.visible {
+  visibility: visible;
 }
