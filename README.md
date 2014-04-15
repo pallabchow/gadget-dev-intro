@@ -1,5 +1,6 @@
  [**Beginning Versal gadget development**](#beginning-versal-gadget-development)<br/>
 ...... [API references](#api-references)<br/>
+...... [Prerequisites](#prerequisites)<br/>
 ...... [Overview and concepts](#overview-and-concepts)<br/>
 ............ [How gadgets work](#how-gadgets-work)<br/>
 ............ [Conceptual example: a "word gallery" gadget](#conceptual-example-a-"word-gallery"-gadget)<br/>
@@ -26,6 +27,28 @@
 ...... [Challenges and scoring](#challenges-and-scoring)<br/>
 
 # Beginning Versal gadget development
+
+## Prerequisites
+
+Working knowledge of
+
+* JavaScript
+* HTML
+* CSS
+
+Familiarity with
+
+* Version control (e.g. git)
+* Command line basics
+
+Nice to have
+
+* HTML5 APIs
+* Preprocessors
+* Unit tests / TDD / BDD
+* Debugging / chrome console
+* Build tools such (e.g. make, gulp, grunt).
+* Module loaders (e.g. Require.js, Browserify)
 
 ## API references
 
