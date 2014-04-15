@@ -47,7 +47,7 @@ Nice to have
 * Preprocessors
 * Unit tests / TDD / BDD
 * Debugging / chrome console
-* Build tools such (e.g. make, gulp, grunt).
+* Build tools (e.g. make, gulp, grunt).
 * Module loaders (e.g. Require.js, Browserify)
 
 ## API references
