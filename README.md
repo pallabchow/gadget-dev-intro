@@ -194,6 +194,8 @@ Go to the gadget directory and run the command
 versal publish
 ```
 
+*WARNING: You should always increment the version of your gadget in `manifest.json` or the Versal platform might serve earlier versions from a cache. In future releases the SDK and/or platform will programmatically enforce version bumps when publishing.*
+
 The gadget will be published to the Versal platform. However, this gadget is published in a "sandbox". It is not yet approved for the entire world to see, and will be visible only in courses authored by yourself.
 
 ## Inserting a gadget into a course
