@@ -28,32 +28,22 @@
 
 # Beginning Versal gadget development
 
-## Prerequisites
-
-Working knowledge of
-
-* JavaScript
-* HTML
-* CSS
-
-Familiarity with
-
-* Version control (e.g. git)
-* Command line basics
-
-Nice to have
-
-* HTML5 APIs
-* Preprocessors
-* Unit tests / TDD / BDD
-* Debugging / browser dev tools
-* Build tools (e.g. make, gulp, grunt).
-* Module loaders (e.g. Require.js, Browserify)
-
 ## API references
 
 * [Gadget messaging API specification](https://github.com/Versal/gadget-api-spec)
 * [Versal SDK repository](https://github.com/Versal/sdk)
+
+## Prerequisites
+
+* Working knowledge of JavaScript, HTML5, CSS
+* Web development / debugging tools, such as Chrome dev tools
+* Familiarity with `git` and basic knowledge of the Unix command line
+
+Optional, nice to have (but some gadgets require these):
+
+* Preprocessors (`coffee-script`)
+* Build tools (`make`, `grunt`, `gulp`, etc.), testing (`mocha`)
+* Module loaders (e.g. `Require.js`, `Browserify`)
 
 ## Overview and concepts
 
