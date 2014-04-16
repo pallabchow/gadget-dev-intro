@@ -41,9 +41,10 @@
 
 Optional, nice to have (but some gadgets require these):
 
-* Preprocessors (`coffee-script`)
-* Build tools (`make`, `grunt`, `gulp`, etc.), testing (`mocha`)
-* Module loaders (e.g. `Require.js`, `Browserify`)
+* Preprocessors (e.g. `coffeescript`, `stylus`)
+* Build tools (e.g. `grunt`, `gulp`, `make`)
+* Testing (e.g. `mocha`, `jasmine`, `Karma`)
+* Module loaders (e.g. `RequireJS`, `browserify`)
 
 ## Overview and concepts
 
