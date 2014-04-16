@@ -131,6 +131,8 @@ You have just tested it.
 - all messages (sent and received) are logged to console
 - the code is commented and uses no frameworks
 
+In the subdirectory `hello-world-gadget-react`, there is a refactored version of the same gadget but using the [`Vue`](http://vuejs.org) framework, the experimental [`versal-player-api`](https://github.com/Versal/player-api) interface, and [`bower`](http://bower.io) packaging.
+
 ### highlighter gadget
 
 [Versal/highlightr-iframe](https://github.com/Versal/highlightr-iframe)
