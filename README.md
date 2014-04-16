@@ -39,7 +39,7 @@
 * Web development / debugging tools, such as Chrome dev tools
 * Familiarity with `git` and basic knowledge of the Unix command line
 
-Optional, nice to have (but some gadgets require these):
+### Optional prerequisites
 
 * Preprocessors (e.g. `coffeescript`, `stylus`)
 * Build tools (e.g. `grunt`, `gulp`, `make`)
