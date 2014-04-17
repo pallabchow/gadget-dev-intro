@@ -1,5 +1,6 @@
  [**Beginning Versal gadget development**](#beginning-versal-gadget-development)<br/>
 ...... [API references](#api-references)<br/>
+...... [Prerequisites](#prerequisites)<br/>
 ...... [Overview and concepts](#overview-and-concepts)<br/>
 ............ [How gadgets work](#how-gadgets-work)<br/>
 ............ [Conceptual example: a "word gallery" gadget](#conceptual-example-a-"word-gallery"-gadget)<br/>
@@ -31,6 +32,19 @@
 
 * [Gadget messaging API specification](https://github.com/Versal/gadget-api-spec)
 * [Versal SDK repository](https://github.com/Versal/sdk)
+
+## Prerequisites
+
+* Working knowledge of JavaScript, HTML5, CSS
+* Web development / debugging tools, such as Chrome dev tools
+* Familiarity with `git` and basic knowledge of the Unix command line
+
+### Optional prerequisites
+
+* Preprocessors (e.g. `coffeescript`, `stylus`)
+* Build tools (e.g. `grunt`, `gulp`, `make`)
+* Testing (e.g. `mocha`, `jasmine`, `Karma`)
+* Module loaders (e.g. `RequireJS`, `browserify`)
 
 ## Overview and concepts
 
