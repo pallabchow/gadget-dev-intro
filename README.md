@@ -37,10 +37,11 @@
 
 * Working knowledge of JavaScript, HTML5, CSS
 * Web development / debugging tools, such as Chrome dev tools
-* Familiarity with `git` and basic knowledge of the Unix command line
+* Basic knowledge of the Unix command line
 
-### Optional prerequisites
+Optional, but nice-to-have knowledge
 
+* Version control (e.g. `git`)
 * Preprocessors (e.g. `coffeescript`, `stylus`)
 * Build tools (e.g. `grunt`, `gulp`, `make`)
 * Testing (e.g. `mocha`, `jasmine`, `Karma`)
