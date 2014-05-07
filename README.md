@@ -209,9 +209,9 @@ Go to the gadget directory and run the command
 versal publish
 ```
 
-*WARNING: You should always increment the version of your gadget in `manifest.json` or the Versal platform might serve earlier versions from a cache. In future releases the SDK and/or platform will programmatically enforce version bumps when publishing.*
-
 The gadget will be published to the Versal platform. However, this gadget is published in a "sandbox". It is not yet approved for the entire world to see, and will be visible only in courses authored by yourself.
+
+*WARNING: Before publishing a new version of a gadget, you should always increment the version of your gadget in `manifest.json` or the Versal platform might serve earlier versions from a cache. In future releases the SDK and/or the Versal platform will programmatically enforce version bumps when publishing.*
 
 ## Inserting a gadget into a course
 
@@ -303,7 +303,7 @@ For the "word gallery" gadget, the attributes describe the array of words and im
 Each gadget’s learner state is associated with the particular signed-in Versal user (who may or may not have authoring rights to the gadget).
 When editing the gadget, the author changes the gadget's attributes, while the learner state properties can only be changed by each learner and only for the particular instance of the gadget instantiated for that individual learner. That learner can be the course author, too, since all authors are learners by virtue of being authenticated Versal users. But other learners cannot change the gadget's attributes.
 
-How does the gadget receive its configuration data? Shortly after loading the gadget's `index.html`, the player posts a series of `attributesChanged` and/or `learnerStateChanged` messages to the gadget. These messages carry the attributes and the learner state for the gadget.
+How does the gadget receive its configuration data? Upon initialization, the gadget should send the message `startListening` to the player. Shortly after loading the gadget's `index.html`, the player will post a series of `attributesChanged` and/or `learnerStateChanged` messages to the gadget. These messages carry the attributes and the learner state for the gadget.
 
 The configuration data always consists of a set of attributes - each attribute being a key-value pair. As an example, the attributes for the "French word gallery" gadget might contain an array, such as
 
