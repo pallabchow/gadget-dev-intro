@@ -20,7 +20,7 @@
  [**The gadget lifecycle**](#the-gadget-lifecycle)<br/>
 ...... [Gadget/player messaging](#gadgetplayer-messaging)<br/>
 ...... [Gadget configuration](#gadget-configuration)<br/>
-...... [Attached / Detached](#attached--detached)<br/>
+...... [Attached](#attached)<br/>
 ...... [Initial visual state](#initial-visual-state)<br/>
 ...... [Persisting the attributes and the learner state](#persisting-the-attributes-and-the-learner-state)<br/>
 ...... [Assets](#assets)<br/>
@@ -215,7 +215,7 @@ The gadget will be published to the Versal platform. However, this gadget is pub
 
 ## Inserting a gadget into a course
 
-Go to [staging.versal.com](http://staging.versal.com). You will need to authenticate; ask us for details. Sign in to `staging.versal.com` and create a new course. After you start editing the new course, click on the "Sandbox" tray in the bottom; you should see your new gadget available. Drag your gadget into the lesson to start using it.
+Go to [versal.com](http://versal.com). You will need to authenticate; ask us for details. Sign in to `versal.com` and create a new course. After you start editing the new course, click on the "Sandbox" tray in the bottom; you should see your new gadget available. Drag your gadget into the lesson to start using it.
 
 ## Updating a published gadget
 
@@ -323,11 +323,9 @@ The gadget may also receive a `setEditable` message that indicates whether an au
 
 The gadget code must always react to these messages by adjusting the UI elements and/or storing the values internally. For example, the `setEditable` message can come at any time as the author toggles editing on and off. The same holds for `attributesChanged` and `learnerStateChanged`.
 
-## Attached / Detached
+## Attached
 
 When the gadget has been attached to a DOM element in the lesson, the player posts the message `attached` to the gadget. The gadget may need to refresh its UI at this time.
-
-_After_ the gadget was removed from the lesson DOM, the player posts the `detached` message.
 
 ## Initial visual state
 
@@ -445,30 +443,15 @@ So the attribute named `myImage` will now contain the asset information.
 
 A Versal asset contains an array of `representations`. Each element of that array describes an image or a video, which may have been scaled down to a smaller size. One of the representations is tagged as `original:true`; this is the one that has not been scaled down.  (If you upload a small image, it will not be scaled down, and so there will be only one "representation", which will be `original`.)
 
-All uploaded assets are automatically processed (and scaled down if necessary) by the Versal platform. The resulting representations are stored in remote URLs. To display the image, you need to fetch the URL that corresponds to the representation's ID. You post a message `getPath`:
+All uploaded assets are automatically processed (and scaled down if necessary) by the Versal platform. The resulting representations are stored in remote URLs. To display the image, you must formulate a valid URL by rendering a provided "url template" with the representation's ID. The template is delivered to the gadget via the [`environmentChanged`](TODO) message. The template will be similar to `//static.versal.com/restapi/assets/<%= id %>` which can be rendered by replacing the substition section at the end of the template with the desired representation Id. For example you can get full URLs like this:
 
 ```
-{ event: 'getPath',
-  data: {
-    messageId: 123,
-    assetId: '65bb32...' // this is really the representation's ID, not the whole asset's ID.
-  }
-}
-```
-
-The player responds by posting `setPath` to the gadget; this message contains a URL:
-
-```
-{ event: 'setPath'
-  data: {
-    messageId: 123,
-    url: 'http://stack.versal.com/api/assets/9a8b7c6d5e430ef...'
-  }
+function assetUrl(id){
+  return this.assetUrlTemplate.replace('<%= id %>', id);
 }
 ```
 
 The gadget can now use this URL to set the `img src=...` tag or to display a video player.
-
 
 ## Challenges and scoring
 
